@@ -44,10 +44,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     /* This dummy footer view is added to the table view to remove the separator lines between empty cells */
     self.tableView.tableFooterView = [UIView new];
-    
+
     HSAppearance* appearance = [[HSHelpStack instance] appearance];
     self.view.backgroundColor = [appearance getBackgroundColor];
 }

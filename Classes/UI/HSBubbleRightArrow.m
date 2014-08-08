@@ -35,13 +35,13 @@
 }
 
 -(id) initWithCoder:(NSCoder *)aDecoder {
-    
+
     self = [super initWithCoder:aDecoder];
     if(self) {
         [[[HSHelpStack instance] appearance] customizeBubbleArrowForRightChatBubble:self];
     }
     return self;
-    
+
 }
 
 

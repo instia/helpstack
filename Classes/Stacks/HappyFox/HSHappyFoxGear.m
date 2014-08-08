@@ -52,14 +52,14 @@
         [self.networkManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
         [self.networkManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
         [self.networkManager.requestSerializer setAuthorizationHeaderFieldWithUsername:self.api_key password:self.auth_code];
-        
+
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     }
     return self;
 }
 
 - (void)fetchKBForSection:(HSKBItem*)section success:(void (^)(NSMutableArray* kbarray))success failure:(void(^)(NSError*))failure{
-    
+
     if (section == nil){
         NSString *url = @"api/1.1/json/kb/sections/";
         if(self.hfSectionID){
@@ -132,23 +132,23 @@
             if ([by objectForKey:@"name"] != [NSNull null]) {
                 tick_update.from = [by objectForKey:@"name"];
             }
-            
+
             NSDictionary *message = [updateDict objectForKey:@"message"];
             tick_update.content = [message objectForKey:@"text"];
-            
+
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
             [dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
             NSDate *date = [dateFormat dateFromString:[updateDict objectForKey:@"timestamp"]];
             tick_update.updatedAt = date;
-            
+
             NSString *type = [by objectForKey:@"type"];
             if([type isEqualToString:@"user"]){
                 tick_update.updateType = HATypeUserReply;
             }else{
                 tick_update.updateType = HATypeStaffReply;
             }
-            
+
             if([message objectForKey:@"attachments"] != [NSNull null]){
                 NSMutableArray *attachments = [[NSMutableArray alloc] init];
                 for(NSDictionary *attachmentDict in [message objectForKey:@"attachments"]){
@@ -190,7 +190,7 @@
     }
 
     NSArray *attachments = newTicket.attachments;
-    
+
     [self.networkManager POST:@"api/1.1/json/tickets/" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
         if(attachments != nil && (attachments.count > 0)){
             for(HSAttachment *attachment in attachments){
@@ -201,7 +201,7 @@
         HSTicket *issue = [[HSTicket alloc] init];
         issue.subject = [responseObject objectForKey:@"subject"];
         issue.ticketID = [[responseObject objectForKey:@"id"] stringValue];
-        
+
         // Parsing user id
         NSString* userId = [[[responseObject objectForKey:@"user"] objectForKey:@"id"] stringValue];
         hfUser.apiHref = userId;
@@ -213,22 +213,22 @@
 }
 
 - (void)addReply:(HSTicketReply *)reply forTicket:(HSTicket *)ticket byUser:(HSUser *)user success:(void (^)(HSUpdate* update))success failure:(void (^)(NSError* e))failure {
-    
+
     NSString *qString = @"api/1.1/json/ticket/";
     qString = [qString stringByAppendingString:ticket.ticketID];
     qString = [qString stringByAppendingString:@"/user_reply/"];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setObject:user.apiHref forKey:@"user"];
     [parameters setObject:reply.content forKey:@"text"];
-    
+
     NSArray *attachments = reply.attachments;
-    
+
     [self.networkManager POST:qString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
         for(HSAttachment *attachment in attachments){
             [formData appendPartWithFileData:attachment.attachmentData name:@"attachments" fileName:attachment.fileName mimeType:attachment.mimeType];
         }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+
         HSUpdate *recentUpdate = [[HSUpdate alloc] init];
         recentUpdate.from = user.name;
         recentUpdate.content = reply.content;

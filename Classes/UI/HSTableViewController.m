@@ -48,7 +48,7 @@
 //    self.view.backgroundColor = [appearance getBackgroundColor];
     [appearance customizeNavigationBar:self.navigationController.navigationBar];
     [appearance customizeTableView:self.tableView];
-    
+
     HSHelpStack* helpStack = [HSHelpStack instance];
     if(!helpStack.gear) {
         HALog(@"No gear found");

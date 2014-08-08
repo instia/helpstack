@@ -35,14 +35,14 @@
         [poweredlabel setTextAlignment:NSTextAlignmentCenter];
         [poweredlabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
         [poweredlabel setTextColor:[UIColor colorWithRed:(197.0/255.0) green:(197.0/255.0) blue:(197.0/255.0) alpha:1.0]];
-        
+
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"Powered by HelpStack"];
         [attributedString beginEditing];
         [attributedString addAttribute:NSFontAttributeName
                                  value:[UIFont boldSystemFontOfSize:12]
                                  range:NSMakeRange(11, 9)];
         [attributedString endEditing];
-        
+
         [poweredlabel setAttributedText:attributedString];
         [self addSubview:poweredlabel];
     }

@@ -37,26 +37,26 @@
                 self.content = [eventObject objectForKey:@"body"];
                 NSInteger author_id = [[eventObject objectForKey:@"author_id"] integerValue];
                 NSDictionary* author = [self searchForUser:author_id array:usersDictionary];
-                
+
                 if ([author objectForKey:@"name"] != [NSNull null]) {
                     self.from = [author objectForKey:@"name"];
                 }
-                
+
                 self.publicNote = [[eventObject objectForKey:@"public"] boolValue];
-                
+
                 // updated time
                 NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
                 [dateFormat setDateFormat:@"yyyy-MM-dd'T'hh:mm:ss'Z'"];
                 [dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
                 NSDate *date = [dateFormat dateFromString:[audit objectForKey:@"created_at"]];
                 self.updatedAt = date;
-                
+
                 self.updateType = HATypeStaffReply;
                 NSString* role = [author objectForKey:@"role"];
                 if ([role isEqualToString:@"end-user"]) {
                     self.updateType = HATypeUserReply;
                 }
-                
+
                 // Attachments
                 NSArray* attachments = [eventObject objectForKey:@"attachments"];
                 NSMutableArray* localAttachmnets = [[NSMutableArray alloc] init];
@@ -65,11 +65,11 @@
                     localAttach.url = [attchmentObject objectForKey:@"content_url"];
                     localAttach.fileName = [attchmentObject objectForKey:@"file_name"];
                     localAttach.mimeType = [attchmentObject objectForKey:@"content_type"];
-                    
+
                     [localAttachmnets addObject:localAttach];
                 }
                 self.attachments = localAttachmnets;
-                
+
                 break;
             }
         }

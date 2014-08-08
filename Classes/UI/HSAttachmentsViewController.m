@@ -43,14 +43,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.loadingView = [[HSActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20.0, 20.0)];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.loadingView];
     self.navigationItem.rightBarButtonItem = rightBarButton;
     self.loadingView.hidden = YES;
-    
+
     self.webView.delegate = self;
-    
+
     if (_attachment.url) {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_attachment.url]];
         [self.webView loadRequest:request];
@@ -58,10 +58,10 @@
     else {
         [self.webView loadData:_attachment.attachmentData MIMEType:_attachment.mimeType textEncodingName:nil baseURL:nil];
     }
-    
-    
-    
-    
+
+
+
+
 	// Do any additional setup after loading the view.
 }
 
@@ -72,7 +72,7 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
+
     if(navigationType == UIWebViewNavigationTypeLinkClicked)
     {
         [[UIApplication sharedApplication] openURL:[request URL]];

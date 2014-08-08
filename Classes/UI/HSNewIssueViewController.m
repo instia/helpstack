@@ -49,15 +49,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     submitBarItem = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStyleDone target:self action:@selector(submitPressed:)];
     self.navigationItem.rightBarButtonItem = submitBarItem;
-    
+
     HSAppearance* appearance = [[HSHelpStack instance] appearance];
     self.view.backgroundColor = [appearance getBackgroundColor];
 
     self.currentStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
-    
+
     [self addCreditsToTable];
 }
 
@@ -107,14 +107,14 @@
     UIBarButtonItem* submitButton = sender;
     if([self checkValidity]) {
         submitButton.enabled = NO;
-        
+
         NSMutableString* messageContent = [[NSMutableString alloc] initWithString:messageField.text];
         [messageContent appendString:[HSUtility deviceInformation]];
 
         self.createNewTicket.subject = subjectField.text;
         self.createNewTicket.content = messageContent;
         self.createNewTicket.attachments = self.attachments;
-        
+
         [self.delegate onNewIssueRequested:self.createNewTicket];
 
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -168,7 +168,7 @@
     static NSString *MessageCellIdentifier = @"Cell_Message";
     if(indexPath.row == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SubjectCellIdentifier forIndexPath:indexPath];
-        
+
         subjectField = (UITextField*) [cell viewWithTag:11];
         subjectField.delegate = self;
         
@@ -177,21 +177,21 @@
         if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
             [subjectField becomeFirstResponder];
         }
-        
+
         return cell;
     }
     else if(indexPath.row == 1) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MessageCellIdentifier forIndexPath:indexPath];
         messageField = (HSTextViewInternal*) [cell viewWithTag:12];
-        
+
         CGRect messageFrame = messageField.frame;
         messageFrame.size.height = cell.frame.size.height - 40.0;
         messageField.frame = messageFrame;
         return cell;
     }
-    
+
     return nil;
-    
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -217,7 +217,7 @@
                 messageHeight = 68.0;
             }
             else {
-                
+
                 if ([HSAppearance isTall]) {
                     messageHeight = 249.0f;
                 }else{
@@ -243,30 +243,30 @@
 - (BOOL)startMediaBrowserFromViewController: (UIViewController*) controller
                                usingDelegate: (id <UIImagePickerControllerDelegate,
                                                UINavigationControllerDelegate>) delegate {
-    
+
     if (([UIImagePickerController isSourceTypeAvailable:
           UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)
         || (delegate == nil)
         || (controller == nil))
         return NO;
-    
+
     UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
     mediaUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    
+
     // Displays saved pictures and movies, if both are available, from the
     // Camera Roll album.
     mediaUI.mediaTypes =
     [UIImagePickerController availableMediaTypesForSourceType:
      UIImagePickerControllerSourceTypeSavedPhotosAlbum];
-    
+
     // Hides the controls for moving & scaling pictures, or for
     // trimming movies. To instead show the controls, use YES.
     mediaUI.allowsEditing = NO;
-    
+
     mediaUI.delegate = self;
-    
+
     mediaUI.modalPresentationStyle = UIModalPresentationCurrentContext;
-    
+
     [controller presentViewController:mediaUI animated:YES completion:nil];
     return YES;
 }
@@ -283,7 +283,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
         messageField.inputAccessoryView = self.messageAttachmentView;
-        [messageField becomeFirstResponder];    
+        [messageField becomeFirstResponder];
 }
 
 - (void)handleAttachment {
@@ -298,7 +298,7 @@
         else {
             [popup showInView:[UIApplication sharedApplication].keyWindow];
         }
-        
+
     } else {
         [self startMediaBrowserFromViewController: self
                                     usingDelegate: self];
@@ -338,32 +338,32 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self dismissViewControllerAnimated:YES completion:nil];
-    
+
     if(self.attachments == nil){
         self.attachments = [[NSMutableArray alloc] init];
     }
-    
+
     [self.attachments removeAllObjects]; // handling only one attachments
     [self refreshAttachmentsImage];
-    
+
     NSURL *imagePath = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
-    
+
     ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *imageAsset)
     {
         ALAssetRepresentation *assetRep = [imageAsset defaultRepresentation];
-        
+
         CGImageRef cgImg = [assetRep fullResolutionImage];
         UIImage *img = [UIImage imageWithCGImage:cgImg];
         NSString *filename = [assetRep filename];
         NSData *data = UIImagePNGRepresentation(img);
-        
+
         HSAttachment *attachment = [[HSAttachment alloc] init];
         attachment.fileName = filename;
         attachment.mimeType = @"image/png";
         attachment.attachmentImage = img;
         attachment.attachmentData = data;
         [self.attachments addObject:attachment];
-        
+
         [self refreshAttachmentsImage];
 
         if ([subjectField.text length] == 0) {
@@ -372,7 +372,7 @@
             [messageField becomeFirstResponder];
         }
     };
-    
+
     // get the asset library and fetch the asset based on the ref url (pass in block above)
     ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
     [assetslibrary assetForURL:imagePath resultBlock:resultblock failureBlock:nil];

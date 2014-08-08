@@ -35,20 +35,20 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    
+
     if (self) {
         float leftPadding = 15.0;
         if ([HSAppearance isIOS6]) {
             leftPadding = 10.0;
         }
-        
+
         UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(leftPadding, 0, 200.0, 30.0)];
         [self addSubview:headerTitle];
         self.titleLabel = headerTitle;
         // Initialization code
         [self refreshCellProperties];
     }
-    
+
     return self;
 }
 

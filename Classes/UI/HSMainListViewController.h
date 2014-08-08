@@ -21,8 +21,8 @@
 //THE SOFTWARE.
 
 /**
-    This TableViewController class is responsible for showing the first list view screen, it shows the list of 
-    KB Articles/Sections and earlier reported issues if any. 
+    This TableViewController class is responsible for showing the first list view screen, it shows the list of
+    KB Articles/Sections and earlier reported issues if any.
 
  */
 

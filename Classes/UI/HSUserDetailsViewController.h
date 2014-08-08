@@ -23,8 +23,8 @@
 #import "HSNewIssueViewController.h"
 #import "HSNewTicket.h"
 
-/** 
-    HSUserDetailsViewController is loaded when a new user wants to report an issue, 
+/**
+    HSUserDetailsViewController is loaded when a new user wants to report an issue,
     to get the user details - User name and User Email
  */
 

@@ -33,7 +33,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    
+
     if (self) {
         // Initialization code
         self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, -5, frame.size.width, frame.size.height)];
@@ -43,14 +43,14 @@
         [[[HSHelpStack instance] appearance] customizeLeftBubbleText:self.messageTextView];
         self.layer.cornerRadius = 5.0;
     }
-    
+
     return self;
 }
 
 -(id) initWithCoder:(NSCoder *)aDecoder {
-    
+
     self = [super initWithCoder:aDecoder];
-    
+
     if (self) {
         // Initialization code
         self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, -5, self.frame.size.width, self.frame.size.height)];
@@ -60,12 +60,12 @@
         [[[HSHelpStack instance] appearance] customizeLeftBubbleText:self.messageTextView];
         self.layer.cornerRadius = 5.0;
     }
-    
+
     return self;
 }
 
 -(UITextView *)getChatTextView {
-    
+
     if(!self.messageTextView) {
         self.messageTextView = [[UITextView alloc] init];
     }

@@ -63,16 +63,16 @@
 
 - (NSString *)itemTypeString
 {
-    
+
     if (_itemType == 0) {
         return @"Article";
     }
     else if (_itemType == 1) {
         return @"Section";
     }
-    
+
     return nil;
-    
+
 }
 
 @end

@@ -57,18 +57,18 @@
 @end
 
 @interface HSGrowingTextView : UIView <UITextViewDelegate> {
-	HSTextViewInternal *internalTextView;	
-	
+	HSTextViewInternal *internalTextView;
+
 	int minHeight;
 	int maxHeight;
-	
+
 	//class properties
 	int maxNumberOfLines;
 	int minNumberOfLines;
-	
+
 	BOOL animateHeightChange;
     NSTimeInterval animationDuration;
-	
+
 	//uitextview properties
 	NSObject <HPGrowingTextViewDelegate> *__unsafe_unretained delegate;
 	NSTextAlignment textAlignment;
@@ -77,7 +77,7 @@
 	UIDataDetectorTypes dataDetectorTypes;
 	UIReturnKeyType returnKeyType;
 	UIKeyboardType keyboardType;
-    
+
     UIEdgeInsets contentInset;
 }
 
@@ -90,7 +90,7 @@
 @property NSTimeInterval animationDuration;
 @property (nonatomic, strong) NSString *placeholder;
 @property (nonatomic, strong) UIColor *placeholderColor;
-@property (nonatomic, strong) UITextView *internalTextView;	
+@property (nonatomic, strong) UITextView *internalTextView;
 
 
 //uitextview properties

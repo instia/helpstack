@@ -23,11 +23,11 @@
 #import "HSGear.h"
 
 /**
- TODO: 
+ TODO:
  1. Explain toHelpEmail
  2. No need for making it singleton
- 
  */
+
 @interface HSDeskGear : HSGear
 
 // Specify the properties required for this Gear.

@@ -63,14 +63,14 @@ BOOL finishedLoadingTickets = NO;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.kbSource = [HSKBSource createInstance];
     self.ticketSource = [HSTicketSource createInstance];
-    
+
     self.loadingView = [[HSActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20.0, 20.0)];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.loadingView];
     self.navigationItem.rightBarButtonItem = rightBarButton;
-    
+
     HSAppearance* appearance = [[HSHelpStack instance] appearance];
     self.view.backgroundColor = [appearance getBackgroundColor];
     self.tableView.tableFooterView = [UIView new];
@@ -78,7 +78,7 @@ BOOL finishedLoadingTickets = NO;
     [self startLoadingAnimation];
     [self refreshKB];
     [self refreshMyIssue];
-    
+
     [self addCreditsToTable];
 }
 
@@ -171,7 +171,7 @@ BOOL finishedLoadingTickets = NO;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    
+
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return 1;
     }else{
@@ -182,7 +182,7 @@ BOOL finishedLoadingTickets = NO;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    
+
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return [self.kbSource kbCount:HAGearTableTypeSearch];
     }else{
@@ -205,23 +205,23 @@ BOOL finishedLoadingTickets = NO;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        
+
         static NSString *CellIdentifier = @"Cell";
-        
+
         HSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[HSTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
-        
+
         HSKBItem* article = [self.kbSource table:HAGearTableTypeSearch kbAtPosition:indexPath.row];
         cell.textLabel.text = article.title;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
-        
+
         return cell;
-        
+
     } else {
-        
+
         static NSString *CellIdentifier = @"HelpCell";
         static NSString *ReportCellIdentifier = @"RepostIssueCell";
         if (indexPath.section == 2 || (indexPath.section == 1 && ([self.ticketSource ticketCount] == 0))) {
@@ -229,14 +229,14 @@ BOOL finishedLoadingTickets = NO;
             if (cell == nil) {
                 cell = [[HSReportIssueCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ReportCellIdentifier];
             }
-            
+
             cell.textLabel.text = @"Report an issue";
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
-            
+
             return cell;
         }
         else {
-            
+
             HSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
                 cell = [[HSTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
@@ -244,7 +244,7 @@ BOOL finishedLoadingTickets = NO;
             cell.textLabel.textAlignment = NSTextAlignmentLeft;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
-            
+
             if (indexPath.section == 1 && ([self.ticketSource ticketCount] > 0)){
                 HSTicket* ticket = [self.ticketSource ticketAtPosition:indexPath.row];
                 cell.textLabel.text = ticket.subject;
@@ -257,17 +257,17 @@ BOOL finishedLoadingTickets = NO;
         }
         return nil;
     }
-    
+
 }
 
 #pragma mark - TableView Delegate methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         [self table:HAGearTableTypeSearch articleSelectedAtIndexPath:indexPath.row];
-        
+
     } else {
         if (indexPath.section == 0) {
             [self table:HAGearTableTypeDefault articleSelectedAtIndexPath:indexPath.row];
@@ -282,7 +282,7 @@ BOOL finishedLoadingTickets = NO;
             [self reportIssue];
         }
     }
-    
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -371,15 +371,15 @@ BOOL finishedLoadingTickets = NO;
 - (void) startReportAnIssue {
     HSNewTicket* ticket = [[HSNewTicket alloc] init];
     UIBarButtonItem* cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(newTicketCancelPressed:)];
-    
+
     if ([self.ticketSource shouldShowUserDetailsFormWhenCreatingTicket]) {
 
         NSString* storyboardId = @"HSUserDetailsController";
         if ([HSAppearance isIOS6]) {
             storyboardId = @"HSUserDetailsController_ios6";
         }
-        
-        
+
+
         HSUserDetailsViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:storyboardId];
         controller.createNewTicket = ticket;
         controller.delegate = self;
@@ -389,11 +389,11 @@ BOOL finishedLoadingTickets = NO;
         newTicketNavController.viewControllers = [NSArray arrayWithObject:controller];
         newTicketNavController.modalPresentationStyle = UIModalPresentationCurrentContext;
 
-        
+
         [self presentViewController:newTicketNavController animated:YES completion:nil];
 
     } else {
-        
+
         HSNewIssueViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"HSReportIssue"];
         controller.createNewTicket = ticket;
         controller.delegate = self;
@@ -404,7 +404,7 @@ BOOL finishedLoadingTickets = NO;
         newTicketNavController.modalPresentationStyle = UIModalPresentationCurrentContext;
 
         [self presentViewController:newTicketNavController animated:YES completion:nil];
-        
+
     }
 }
 
@@ -451,7 +451,7 @@ BOOL finishedLoadingTickets = NO;
     [self.kbSource filterKBforSearchString:string success:^{
         [self.searchDisplayController.searchResultsTableView reloadData];
     } failure:^(NSError* e){
-        
+
     }];
 }
 
@@ -460,23 +460,23 @@ BOOL finishedLoadingTickets = NO;
 - (void)onNewIssueRequested:(HSNewTicket *)createNewTicket
 {
     [self startLoadingAnimation];
-    
+
     [self.ticketSource createNewTicket:createNewTicket success:^{
-        
+
         [self reloadTicketsSection];
         [self stopLoadingAnimation];
-        
-        
+
+
     } failure:^(NSError* e){
         [self stopLoadingAnimation];
-        
+
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Oops! Some error." message:@"There was some error in reporting your issue. Is your internet ON? Can you try after sometime?" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
-        
+
     }];
-    
-    
-    
+
+
+
 //
 }
 
@@ -487,17 +487,17 @@ BOOL finishedLoadingTickets = NO;
     {
         MFMailComposeViewController* mailer = [[MFMailComposeViewController alloc] init];
         mailer.mailComposeDelegate = self;
-        
+
         [mailer setToRecipients:@[[self.ticketSource supportEmailAddress]]];
         [mailer setSubject:@"Help"];
         [mailer setMessageBody:[HSUtility deviceInformation] isHTML:NO];
-        
+
         mailer.modalPresentationStyle = UIModalPresentationCurrentContext;
-        
+
         [self presentViewController:mailer animated:YES completion:nil];
     } else
     {
-        
+
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Unable to send email" message:@"Have you configured any email account in your phone? Please check." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
@@ -506,12 +506,12 @@ BOOL finishedLoadingTickets = NO;
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    
+
     if (result == MFMailComposeResultSent) {
         UIAlertView* mailSentAlert = [[UIAlertView alloc] initWithTitle:@"Mail sent." message:@"Thanks for contacting me. Will reply asap." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [mailSentAlert show];
     }
-    
+
 }
 
 @end

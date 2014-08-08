@@ -34,13 +34,13 @@
 
 
 /**
- 
+
  HSGear helps you implement your own favorite HelpDesk solution at ease.
- 
+
  We have integrated AFNetworking for you to use.
- 
+
  Note: We are doing caching for you -> Only important fields are cached and stored in 'HelpStack' directory.
- 
+
  */
 
 #define HALog(fmt, ...) NSLog((@"HelpApp:- " fmt),  ##__VA_ARGS__)
@@ -51,17 +51,17 @@
 /// @name Fetch KB articles from server
 ///-------------------------------------
 /**
- 
+
  Fetch KB articles for given section and return an array to display. Section will be nil for first time, and after that user selection section will be sent.
- 
+
  @params section The sub-section for which KB is to be fetch. Can be nil to get first set of sections.
- 
+
  @return, array of type HSKBItem when operation is success.
 
  Note: Make sure, to set if the given KB is of type section or article.
 
  Note: Call success even if you are not doing anything here.
- 
+
  */
 - (void)fetchKBForSection:(HSKBItem*)section success:(void (^)(NSMutableArray* kbarray))success failure:(void(^)(NSError* e))failure;
 
@@ -70,13 +70,13 @@
 /// @name Fetch all ticket
 ///-------------------------------------------
 /**
- 
+
  Fetch Ticket for the user.
- 
+
  @params user The user object that is formed when ticket is created.
 
  @return, array of type HSTicket when operation is success.
- 
+
  */
 - (void)fetchAllTicketForUser:(HSUser *)user success:(void (^)(NSMutableArray* ticketarray))success failure:(void (^)(NSError* e))failure;
 
@@ -87,22 +87,22 @@
 
 /**
  This is called before creating a ticket so validation on user information can be done.
- 
+
  @params user user object that contains name and email of user
- 
+
  @return valid user object, this object will be send back during ticket creation.
  */
 - (void)checkAndFetchValidUser:(HSUser*)user withSuccess:(void (^)(HSUser* validUser))success failure:(void(^)(NSError* e))failure;
 
 /**
  Create ticket with given params
- 
+
  @params newTicket The properties for new ticket that has to be created.
  @params user The user object that is received in `checkAndFetchValidUser:user`
 
  @return ticket object for the given ticket creation request when operation is success.
  @return updated user object for tickets when operation is success.
- 
+
  */
 - (void)createNewTicket:(HSNewTicket *)newTicket byUser:(HSUser *)user success:(void (^)(HSTicket* ticket, HSUser * updatedUserInfo))success failure:(void (^)(NSError* e))failure;
 
@@ -111,14 +111,14 @@
 /// @name Fetch all updates on ticket
 ///-------------------------------------------
 /**
- 
+
     Fetch Updates on given Ticket.
- 
+
     @params ticket The ticket for which the update has to be fetched.
     @params user The user object that is formed when ticket is created.
- 
+
     @return array of HSUpdate object when operation is success
- 
+
  */
 - (void)fetchAllUpdateForTicket:(HSTicket *)ticket forUser:(HSUser *)user success:(void (^)(NSMutableArray* updateArray))success failure:(void (^)(NSError* e))failure;
 
@@ -132,7 +132,7 @@
  @params reply The reply to be added to a given ticket.
  @params ticket The ticket for which the update has to be fetched.
  @params user The user object that is formed when ticket is created.
- 
+
  @return update object when operation is success
  */
 - (void)addReply:(HSTicketReply *)reply forTicket:(HSTicket *)ticket byUser:(HSUser *)user success:(void (^)(HSUpdate* update))success failure:(void (^)(NSError* e))failure;
@@ -145,7 +145,7 @@
 /// @name Search KB articles for given String
 ///-------------------------------------------
 /**
- Filter your KB articles and return an array to display. 
+ Filter your KB articles and return an array to display.
  Default implementation, filters array within sections.
  */
 - (void)searchKB:(NSString*)searchString success:(void (^)(NSMutableArray* kbarray))success failure:(void(^)(NSError* e))failure;

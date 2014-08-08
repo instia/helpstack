@@ -25,8 +25,8 @@
 
 /**
     HAGear is helper class that does all heavy lifting for you. HAGear is responsible for handling data models and caching for you. It integrate KB and ticket for you.
- 
- 
+
+
     It uses HAKBGearImpl, which implements KB model and HSTicketGearImpl to implement Ticket model
  */
 

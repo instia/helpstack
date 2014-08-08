@@ -129,13 +129,13 @@
 }
 
 - (void)setCustomThemeProperties:(NSDictionary *)customThemeProperties {
-    
+
     _customThemeProperties = customThemeProperties;
     [self refreshAppearanceProperties]; //if theme exist, those colors or fonts get set.
 }
 
 - (void)refreshAppearanceProperties {
-    
+
     [self getNavigationBarProperties];
     [self getTableViewCellProperties];
     [self getTableHeaderProperties];
@@ -151,9 +151,9 @@
     self.navBarTitleColor = DEFAULT_NAVIGATIONBAR_TITLECOLOR;
     self.navBarTintColor = DEFAULT_NAVIGATIONBAR_BUTTONTINTCOLOR;
     self.navBarImageName = nil;
-    
+
     NSDictionary *navBarDict = [self.customThemeProperties objectForKey:@"NavigationBarAttributes"];
-    
+
     //NavigationBar background Color
     NSString *colorString = [navBarDict objectForKey:@"BackgroundColor"];
     if(colorString != nil){
@@ -162,9 +162,9 @@
             self.navBarBgColor = bgColor;
         }
     }
-    
+
     self.navBarImageName = [navBarDict objectForKey:@"BackgroundImage"];
-    
+
     //NavigationBar Title
     NSString *titleFontName = [navBarDict objectForKey:@"TitleFont"];
     NSString *titleFontSize = [navBarDict objectForKey:@"TitleFontSize"];
@@ -180,7 +180,7 @@
             self.navBarTitleColor = titleColor;
         }
     }
-    
+
     //NavigationBar Tint Color
     NSString *tintColorString = [navBarDict objectForKey:@"ButtonTintColor"];
     if(tintColorString != nil){
@@ -192,7 +192,7 @@
 }
 
 - (void)getTableViewCellProperties {
-    
+
     self.cellBgColor = DEFAULT_CELL_BACKGROUNDCOLOR;
 
     //Background Color
@@ -207,7 +207,7 @@
 }
 
 - (void)getTableHeaderProperties {
-    
+
     self.headerBgColor = DEFAULT_HEADER_BACKGROUNDCOLOR;
     self.headerTitleColor = DEFAULT_HEADER_TITLECOLOR;
     self.headerTitleFont = DEFAULT_HEADER_TITLEFONT;
@@ -231,7 +231,7 @@
             self.headerTitleFont = customFont;
         }
     }
-    
+
     //Title Color
     NSString *titleColorString = [tableViewDict objectForKey:@"HeadingColor"];
     if(titleColorString != nil){
@@ -243,13 +243,13 @@
 }
 
 - (void)getLabelProperties {
-    
+
     self.labelBgColor = DEFAULT_LABEL_BACKGROUNDCOLOR;
     self.labelColor = DEFAULT_LABEL_COLOR;
     self.labelFont = DEFAULT_LABEL_FONT;
-    
+
     NSDictionary *textDict = [self.customThemeProperties objectForKey:@"LabelAttributes"];
-    
+
     //BackgroundColor
     NSString *bgColorString = [textDict objectForKey:@"BackgroundColor"];
     if(bgColorString != nil){
@@ -258,7 +258,7 @@
             self.labelBgColor = custombgColor;
         }
     }
-    
+
     //Label Color
     NSString *titleColorString = [textDict objectForKey:@"LabelColor"];
     if(titleColorString != nil){
@@ -267,7 +267,7 @@
             self.labelColor = customlabelColor;
         }
     }
-    
+
     //Label Font
     NSString *titleFontString = [textDict objectForKey:@"LabelFont"];
     NSString *titleFontSize = [textDict objectForKey:@"LabelSize"];
@@ -280,24 +280,24 @@
 }
 
 -(void)getChatBubbleProperties {
-    
+
     self.rightChatBubble_BackgroundColor = DEFAULT_RIGHTCHATBUBBLE_BACKGROUNDCOLOR;
     self.rightChatBubble_textColor = DEFAULT_RIGHTCHATBUBBLE_TEXTCOLOR;
     self.rightChatBubble_textFont = DEFAULT_RIGHTCHATBUBBLE_TEXTFONT;
-    
+
     self.leftChatBubble_BackgroundColor = DEFAULT_LEFTCHATBUBBLE_BACKGROUNDCOLOR;
     self.leftChatBubble_textColor = DEFAULT_LEFTCHATBUBBLE_TEXTCOLOR;
     self.leftChatBubble_textFont = DEFAULT_LEFTCHATBUBBLE_TEXTFONT;
-    
+
     self.messageInfoTextColor = DEFAULT_MESSAGEINFO_TEXTCOLOR;
     self.messageInfoTextFont = DEFAULT_MESSAGEINFO_TEXTFONT;
-    
+
     NSDictionary *chatBubbleProperties = [self.customThemeProperties objectForKey:@"ChatBubbleAttributes"];
-    
+
     if(!chatBubbleProperties) {
         return;
     }
-    
+
     NSString *textFontString = [chatBubbleProperties objectForKey:@"TextFont"];
     NSString *textFontSize = [chatBubbleProperties objectForKey:@"TextSize"];
     if(textFontString && textFontSize && textFontString.length > 0 && textFontSize.length > 0){
@@ -307,10 +307,10 @@
             self.leftChatBubble_textFont = customFont;
         }
     }
-    
+
     NSDictionary *rightChatBubbleProperties = [chatBubbleProperties objectForKey:@"RightChatBubbleAttributes"];
     NSDictionary *leftChatBubbleProperties = [chatBubbleProperties objectForKey:@"LeftChatBubbleAttributes"];
-    
+
     if(rightChatBubbleProperties) {
         NSString *bgColorString = [rightChatBubbleProperties objectForKey:@"BackgroundColor"];
         if(bgColorString){
@@ -319,7 +319,7 @@
                 self.rightChatBubble_BackgroundColor = bgColor;
             }
         }
-        
+
         NSString *textColorString = [rightChatBubbleProperties objectForKey:@"TextColor"];
         if(textColorString){
             UIColor *textColor = [UIColor colorFromRGBString:textColorString];
@@ -328,7 +328,7 @@
             }
         }
     }
-    
+
     if(leftChatBubbleProperties) {
         NSString *bgColorString = [leftChatBubbleProperties objectForKey:@"BackgroundColor"];
         if(bgColorString){
@@ -337,7 +337,7 @@
                 self.leftChatBubble_BackgroundColor = bgColor;
             }
         }
-        
+
         NSString *textColorString = [leftChatBubbleProperties objectForKey:@"TextColor"];
         if(textColorString){
             UIColor *textColor = [UIColor colorFromRGBString:textColorString];
@@ -345,9 +345,9 @@
                 self.leftChatBubble_textColor = textColor;
             }
         }
-        
+
     }
-    
+
     NSString *smalltextFontString = [chatBubbleProperties objectForKey:@"MessageInfoLabelFont"];
     NSString *smalltextFontSize = [chatBubbleProperties objectForKey:@"MessageInfoLabelSize"];
     if(smalltextFontString && smalltextFontSize && smalltextFontString.length > 0 && smalltextFontSize.length > 0){
@@ -356,7 +356,7 @@
             self.messageInfoTextFont = customFont;
         }
     }
-    
+
     NSString *textColorString = [chatBubbleProperties objectForKey:@"MessageInfoLabelColor"];
     if(textColorString){
         UIColor *textColor = [UIColor colorFromRGBString:textColorString];
@@ -368,7 +368,7 @@
 
 /* Background Color - this goes as the background color for all the HelpStack screens */
 - (UIColor *)getBackgroundColor {
-    
+
     UIColor *bgColor = DEFAULT_BACKGROUNDCOLOR;
 
     NSString *bgImageFileName = [self.customThemeProperties objectForKey:@"BackgroundImageName"];
@@ -401,8 +401,8 @@
         [navigationBar setBarTintColor:self.navBarBgColor]; //Sets the navbar bg color
         [navigationBar setTintColor:self.navBarTintColor]; //Sets the navbar button tint color
     }
-    
-    
+
+
     if(self.navBarImageName){
         UIImage *bgImage = [UIImage imageNamed:self.navBarImageName];
         if(bgImage){
@@ -415,7 +415,7 @@
     [textAttributes setObject:self.navBarTitleFont forKey:NSFontAttributeName];
     [navigationBar setTitleTextAttributes:textAttributes];
     [navigationBar setBarStyle:UIBarStyleDefault];
-    
+
 }
 
 #pragma mark - TableView Customization
@@ -434,7 +434,7 @@
                 tableViewBgColor = bgColor;
             }
         }
-        
+
         //Separator Color
         NSString *separatorColorString = [tableViewDict objectForKey:@"SeparatorColor"];
         if(separatorColorString != nil){
@@ -465,24 +465,24 @@
     (Cell Labels will take up customization as per label properties
  */
 - (void)customizeCell:(UITableViewCell *)cell {
-    
+
     cell.backgroundColor = self.cellBgColor;
 }
 
 #pragma mark - Label Customization
 - (void)customizeTextLabel:(UILabel *)title {
-    
+
     title.font = self.labelFont;
     title.textColor = self.labelColor;
     title.backgroundColor = self.labelBgColor;
 }
 
-/* 
-    Small label denotes the label used to show the Message Sender 
+/*
+    Small label denotes the label used to show the Message Sender
     name and TimeStamp of messages in IssueDetail Screen
 */
 - (void)customizeSmallTextLabel:(UILabel *)title {
-    
+
     title.font = self.messageInfoTextFont;
     title.backgroundColor = [UIColor clearColor];
     title.textColor = self.messageInfoTextColor;
@@ -491,7 +491,7 @@
 #pragma mark - Text View customization
 
 - (void)customizeTextView:(UITextView *)textView {
-    
+
     UIColor *bgColor = DEFAULT_TEXTVIEW_BACKGROUNDCOLOR;
     UIColor *textViewColor = DEFAULT_TEXTVIEW_TEXTCOLOR;
     UIFont *textFont = DEFAULT_TEXTVIEW_FONT;
@@ -506,7 +506,7 @@
                 bgColor = custombgColor;
             }
         }
-        
+
         //TextView Color
         NSString *titleColorString = [textDict objectForKey:@"TextViewColor"];
         if(titleColorString != nil){
@@ -515,7 +515,7 @@
                 textViewColor = customColor;
             }
         }
-        
+
         //Label Font
         NSString *textFontString = [textDict objectForKey:@"TextViewFont"];
         NSString *textFontSize = [textDict objectForKey:@"TextViewSize"];
@@ -532,7 +532,7 @@
 #pragma mark - Button customization
 
 - (void)customizeButton:(UIButton *)button {
-    
+
     UIColor *bgColor = DEFAULT_BUTTON_BACKGROUNDCOLOR;
     UIColor *buttonTitleColor = DEFAULT_BUTTON_TITLECOLOR;
     UIFont *buttonTitleFont = DEFAULT_BUTTON_TITLEFONT;
@@ -546,7 +546,7 @@
                 bgColor = custombgColor;
             }
         }
-        
+
         //TextView Color
         NSString *titleColorString = [buttonDict objectForKey:@"TitleColor"];
         if(titleColorString != nil){
@@ -555,7 +555,7 @@
                 buttonTitleColor = [UIColor whiteColor];
             }
         }
-        
+
         //Label Font
         NSString *textFontString = [buttonDict objectForKey:@"TitleFont"];
         NSString *textFontSize = [buttonDict objectForKey:@"TitleSize"];
@@ -575,109 +575,109 @@
 
 /**
     Customizing Chat bubbles - Chat bubbles on TicketDetailView screen takes up properties set from the tableview
-    
+
     Right bubble (User's reply) - takes up table view header properties for background
     Left bubble (Staff's reply) - takes up table view cell properties for background
     Set the corresponding values to customize the chat bubbles
  */
 
 - (void)customizeRightBubble:(UIView *)bubble {
-    
+
     bubble.layer.borderColor = DEFAULT_CHATBUBBLE_BORDERCOLOR.CGColor;
     bubble.layer.borderWidth = 0.0;
-    
+
     //bubble.backgroundColor = self.headerBgColor;
-    
+
     bubble.backgroundColor = self.rightChatBubble_BackgroundColor;
 }
 
 -(void) customizeBubbleArrowForRightChatBubble:(UIView *)arrowView {
-    
+
     arrowView.backgroundColor = [UIColor clearColor];
-    
+
     NSArray *sublayers = [[arrowView layer] sublayers];
     [[sublayers objectAtIndex:0] removeFromSuperlayer];
-    
+
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, NULL, 0.0f, 0.0f);
     CGPathAddLineToPoint(path, NULL, arrowView.frame.size.width, arrowView.frame.size.height/2);
     CGPathAddLineToPoint(path, NULL, 0.0f , arrowView.frame.size.height);
     CGPathMoveToPoint(path, NULL, 0.0f, 0.0f);
-    
+
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     [shapeLayer setPath:path];
     [shapeLayer setFillColor:[self.rightChatBubble_BackgroundColor CGColor]];
     [shapeLayer setStrokeColor:[[UIColor clearColor] CGColor]];
     [shapeLayer setBounds:arrowView.bounds];
-    
+
     [shapeLayer setAnchorPoint:CGPointMake(0.0f, 0.0f)];
     [shapeLayer setPosition:CGPointMake(0.0f, 0.0f)];
     [[arrowView layer] insertSublayer:shapeLayer atIndex:0];
 }
 
 -(void) customizeBubbleArrowForLeftChatBubble:(UIView *)arrowView {
-    
+
     arrowView.backgroundColor = [UIColor clearColor];
-    
+
     NSArray *sublayers = [[arrowView layer] sublayers];
     [[sublayers objectAtIndex:0] removeFromSuperlayer];
-    
+
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, NULL, arrowView.frame.size.width, 0.0f);
     CGPathAddLineToPoint(path, NULL, 0 , arrowView.frame.size.height/2);
     CGPathAddLineToPoint(path, NULL, arrowView.frame.size.width , arrowView.frame.size.height);
     CGPathMoveToPoint(path, NULL, arrowView.frame.size.width, 0.0f);
-    
+
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     [shapeLayer setPath:path];
     [shapeLayer setFillColor:[self.leftChatBubble_BackgroundColor CGColor]];
     [shapeLayer setStrokeColor:[[UIColor clearColor] CGColor]];
     [shapeLayer setBounds:arrowView.bounds];
-    
+
     [shapeLayer setAnchorPoint:CGPointMake(0.0f, 0.0f)];
     [shapeLayer setPosition:CGPointMake(0.0f, 0.0f)];
     [[arrowView layer] insertSublayer:shapeLayer atIndex:0];
 }
 
 - (void)customizeLeftBubble:(UIView *)bubble {
-    
+
     bubble.layer.borderColor = DEFAULT_CHATBUBBLE_BORDERCOLOR.CGColor;
     bubble.layer.borderWidth = 0.0;
- 
+
     //bubble.backgroundColor = self.cellBgColor;
-    
+
     bubble.backgroundColor = self.leftChatBubble_BackgroundColor;
 }
 
 -(void)customizeRightBubbleText:(UITextView *)BubbleText{
-    
+
     BubbleText.backgroundColor = [UIColor clearColor];
     BubbleText.textColor = self.rightChatBubble_textColor;
     BubbleText.font = self.rightChatBubble_textFont;
-    
+
 }
 
 -(void)customizeLeftBubbleText:(UITextView *)BubbleText{
-    
+
     BubbleText.backgroundColor = [UIColor clearColor];
     BubbleText.textColor = self.leftChatBubble_textColor;
     BubbleText.font = self.leftChatBubble_textFont;
 }
 
 -(UIFont *)getBubbleTextFont{
-    
+
     return self.rightChatBubble_textFont;
 }
 
 //is this an iPhone5
 + (BOOL)isTall {
-    
+
     UIScreen* screen = [UIScreen mainScreen];
     return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone && (screen.bounds.size.height * screen.scale) == 1136);
 }
 
 + (BOOL)isIPad{
-    
+
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
         return YES;
     }
@@ -685,7 +685,7 @@
 }
 
 + (BOOL)isIOS6 {
-    
+
     return [[[UIDevice currentDevice] systemVersion] floatValue] < 7.0;
 }
 

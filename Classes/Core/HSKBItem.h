@@ -49,9 +49,9 @@ typedef NS_OPTIONS(NSUInteger, HSKBItemType) {
 
 /**
     Kb will be prepared with given title, content and id, its type will be set as Article.
- 
+
     title and content cannot be nil.
- 
+
     You can assign nil KBid.
  */
 - (id)initAsArticle:(NSString*)title textContent:(NSString*)content kbID:(NSString*)kbID;
@@ -59,9 +59,9 @@ typedef NS_OPTIONS(NSUInteger, HSKBItemType) {
 
 /**
  Kb will be prepared with given title, content and id,  its type will be set as Section.
- 
+
  title and content cannot be nil.
- 
+
  You can assign nil KBid.
  */
 - (id)initAsSection:(NSString*)title kbID:(NSString*)kbID;

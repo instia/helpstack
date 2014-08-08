@@ -48,7 +48,7 @@
 }
 
 -(id) initWithCoder:(NSCoder *)aDecoder {
-    
+
     self = [super initWithCoder:aDecoder];
     if(self) {
         self.backgroundColor = [UIColor whiteColor];
@@ -60,7 +60,7 @@
         self.accessoryType = UITableViewCellAccessoryNone;
     }
     return self;
-    
+
 }
 
 - (void)awakeFromNib

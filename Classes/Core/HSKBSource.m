@@ -49,9 +49,9 @@
     if(self = [super init]) {
         self.gear = gear;
     }
-    
+
     return self;
-    
+
 }
 
 
@@ -83,17 +83,17 @@
 }
 
 - (void)readKBArticleFromLocalPList:(void (^)(void))success failure:(void (^)(NSError *))failure {
-    
+
     NSString* articlesPath = [[NSBundle mainBundle] pathForResource:self.gear.localArticlePath ofType:@"plist"];
     NSArray* articleDict = [NSArray arrayWithContentsOfFile:articlesPath];
     NSMutableArray* articles = [[NSMutableArray alloc] init];
-    
-    
+
+
     for (NSDictionary *object in articleDict) {
         HSKBItem* kb = [[HSKBItem alloc] initAsArticle:[object objectForKey:@"title"] textContent:[object objectForKey:@"content"] kbID:nil];
         [articles addObject:kb];
     }
-    
+
     self.kbArray = articles;
     success();
 }
@@ -130,9 +130,9 @@
     // preparing new HAKBSource, for given section
     HSKBSource* gear = [[HSKBSource alloc] initWithGear:self.gear];
     gear.section = section;
-    
+
     return gear;
-    
+
 }
 
 @end

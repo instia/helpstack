@@ -25,9 +25,9 @@
 
 /**
     Display given article on webView.
-    
+
     In given article, if htmlContent is set, it is used by default or else it uses textContent.
- 
+
     If a link is clicked, it is open in new window.
  */
 @interface HSArticleDetailViewController : HSViewController

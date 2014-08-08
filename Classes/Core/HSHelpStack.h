@@ -50,7 +50,7 @@
 
 /**
     Whenever you want to display HelpDesk screen, call this. This will open help screen as a modal view controller for iPhone and as a form sheet on ipad.
- 
+
     Note: There should be a gear set, otherwise gear initialization will fail.
  */
 - (void)showHelp:(UIViewController*)controller;
@@ -58,9 +58,3 @@
 - (void)setThemeFrompList:(NSString*)pListPath;
 
 @end
-
-
-
-
-
-

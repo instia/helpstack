@@ -1,7 +1,7 @@
 //  HSAppearance.h
 //
 //Copyright (c) 2014 HelpStack (http://helpstack.io)
-//                              
+//
 //Permission is hereby granted, free of charge, to any person obtaining a cop
 //of this software and associated documentation files (the "Software"), to deal
 //in the Software without restriction, including without limitation the rights

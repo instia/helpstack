@@ -43,9 +43,9 @@
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.loadingView];
     self.navigationItem.rightBarButtonItem = rightBarButton;
     self.loadingView.hidden = YES;
-    
+
     self.title = @"Article";
-    
+
     NSString* content;
     if(self.article.htmlContent) {
         content = self.article.htmlContent;
@@ -54,12 +54,12 @@
     else if(self.article.textContent) {
         content = self.article.textContent;
     }
-    
-    
-    
+
+
+
     // patch the content to add title and font
     NSString* wrapperContent = [NSString stringWithFormat:HTML_WRAPPER_WITH_TITLE,  self.article.title, content];
-    
+
     NSURL* baseUrl = [NSURL URLWithString:self.article.baseUrl];
     [self.webView loadHTMLString:wrapperContent baseURL:baseUrl];
     self.webView.scalesPageToFit = false;

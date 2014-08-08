@@ -27,23 +27,23 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    
+
     if (self) {
         // Initialization code
         [[[HSHelpStack instance] appearance] customizeButton:self];
     }
-    
+
     return self;
 }
 
 -(id) initWithCoder:(NSCoder *)aDecoder {
-    
+
     self = [super initWithCoder:aDecoder];
     if(self) {
         [[[HSHelpStack instance] appearance] customizeButton:self];
     }
     return self;
-    
+
 }
 
 @end

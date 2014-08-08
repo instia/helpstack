@@ -64,7 +64,7 @@
     if (array!=nil) {
         self.ticketArray = [NSMutableArray arrayWithArray:array];
     }
-    
+
     self.user = [HSTicketSource userAtPath:USER_CACHE_FILE_NAME];
 }
 
@@ -75,15 +75,15 @@
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
-    
+
     // TODO: may be a check for user info can be performed here.
-    
+
     [self.gear checkAndFetchValidUser:user withSuccess:^(HSUser *validUser) {
         // Store user info so that it can be used when creating ticket.
         // User info is saved only when first ticket is created successfully.
         self.user = validUser;
         success();
-        
+
 
     } failure:^(NSError *e) {
         HALog("searchOrRegisterUser failed: %@",e);
@@ -112,7 +112,7 @@
                 // Save in cache
                 [HSTicketSource saveTickets:self.ticketArray atPath:TICKET_CACHE_FILE_NAME];
             }
-            
+
             success();
         } failure:^(NSError *e) {
             HALog("Prepare Ticket failed: %@",e);
@@ -136,7 +136,7 @@
 
 
 - (void)createNewTicket:(HSNewTicket *)details success:(void (^)(void))success failure:(void (^)(NSError *))failure {
-    
+
     // Checking if gear implements createTicket:success:failure:
     if([self.gear respondsToSelector:@selector(createNewTicket:byUser:success:failure:)]) {
         [self.gear createNewTicket:details byUser:self.user success:^(HSTicket *ticket, HSUser* user) {
@@ -147,10 +147,10 @@
                     self.ticketArray = [[NSMutableArray alloc] init];
                 }
                 [self.ticketArray insertObject:ticket atIndex:0];
-                
+
                 //Saves ticket array in cache and user detail in cache
                 [HSTicketSource saveTickets:self.ticketArray atPath:TICKET_CACHE_FILE_NAME];
-                
+
                 if ( user != nil) {
                     self.user = user;
                     [HSTicketSource saveUser:user atPath:USER_CACHE_FILE_NAME];
@@ -223,7 +223,7 @@
     if ([self.gear respondsToSelector:@selector(doLetEmailHandleIssueCreation)]) {
         return ![self.gear doLetEmailHandleIssueCreation];
     }
-    
+
     return YES;
 }
 
@@ -235,12 +235,12 @@
 
 + (void)saveTickets:(NSArray *)tickets atPath:(NSString *)fileName {
     NSString* cacheFilePath = [self fileCachePath:fileName];
-    
+
     NSFileManager* fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:cacheFilePath]) {
         [fm removeItemAtPath:cacheFilePath error:nil];
     }
-    
+
     [NSKeyedArchiver archiveRootObject:tickets toFile:cacheFilePath];
 }
 
@@ -251,12 +251,12 @@
 
 + (void)saveUser:(HSUser *)user atPath:(NSString *)fileName {
     NSString* cacheFilePath = [self fileCachePath:fileName];
-    
+
     NSFileManager* fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:cacheFilePath]) {
         [fm removeItemAtPath:cacheFilePath error:nil];
     }
-    
+
     if (user) { // Save only for non nil user
         [NSKeyedArchiver archiveRootObject:user toFile:cacheFilePath];
     }
@@ -281,11 +281,11 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     documentsDirectory = [documentsDirectory stringByAppendingPathComponent:[self directoryName]];
-    
+
     // Create directory if not already exist
     NSError *error;
     [[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:&error];
-    
+
     return documentsDirectory;
 }
 

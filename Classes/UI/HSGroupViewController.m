@@ -43,7 +43,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     [self.kbSource prepareKB:^{
         [self.tableView reloadData];
     } failure:^(NSError* e){
@@ -52,7 +52,7 @@
 
     }];
     self.title = self.selectedKB.title;
-    
+
     HSAppearance* appearance = [[HSHelpStack instance] appearance];
     self.view.backgroundColor = [appearance getBackgroundColor];
 
@@ -90,16 +90,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        
+
         static NSString* resultCellId = @"Cell";
         HSTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:resultCellId];
         if (!cell) {
             cell = [[HSTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:resultCellId];
         }
-        
+
         HSKBItem* article = [self.kbSource table:HAGearTableTypeSearch kbAtPosition:indexPath.row];
         cell.textLabel.text = article.title;
-        
+
         cell.accessoryType = UITableViewCellAccessoryNone;
 
         return cell;
@@ -117,15 +117,15 @@
         return cell;
 
     }
-    
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         [self table:HAGearTableTypeSearch articleSelectedAtIndexPath:indexPath.row];
-        
+
     }else{
         [self table:HAGearTableTypeDefault articleSelectedAtIndexPath:indexPath.row];
     }
@@ -147,7 +147,7 @@
         controller.article = selectedKB;
         [self.navigationController pushViewController:controller animated:YES];
     }
-    
+
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -161,7 +161,7 @@
     [self.kbSource filterKBforSearchString:string success:^{
         [self.searchDisplayController.searchResultsTableView reloadData];
     } failure:^(NSError* e){
-        
+
     }];
 }
 

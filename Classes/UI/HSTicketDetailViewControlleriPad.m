@@ -50,7 +50,7 @@ float keyboardH;
 }
 
 - (void)addMessageView{
-    
+
     self.messageText = [[HSGrowingTextView alloc] initWithFrame:CGRectMake(57, 5, 420, 42)];
     self.messageText.isScrollable = NO;
     self.messageText.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
@@ -66,7 +66,7 @@ float keyboardH;
     self.messageText.placeholder = @"Reply here";
     self.messageText.layer.cornerRadius = 5.0;
     [self.bottomMessageView addSubview:self.messageText];
-    
+
 }
 
 - (void)growingTextView:(HSGrowingTextView *)growingTextView willChangeHeight:(float)height
@@ -75,9 +75,9 @@ float keyboardH;
 	CGRect msgViewFrame = self.bottomMessageView.frame;
     msgViewFrame.size.height -= diff;
     msgViewFrame.origin.y += diff;
-    
+
     self.messageText.frame = growingTextView.frame;
-    
+
     UIEdgeInsets contentInsets = self.chatTableView.contentInset;
     if(contentInsets.bottom == 0 && diff > 0) {   //This change for ipad
         self.bottomMessageView.frame = msgViewFrame;
@@ -86,27 +86,27 @@ float keyboardH;
     contentInsets.bottom-=diff;
     self.chatTableView.contentInset = contentInsets;
     self.chatTableView.scrollIndicatorInsets = contentInsets;
-    
+
     [self scrollDownToLastMessage];
-    
+
 	self.bottomMessageView.frame = msgViewFrame;
 }
 
 #pragma mark - Handle keyboard delegate
 
 - (void) keyboardWillShow:(NSNotification *)note{
-    
+
     CGRect formsheetFrame = self.navigationController.view.bounds;
     CGRect viewFrame = [UIScreen mainScreen].bounds;
     CGPoint centreP = CGPointMake(viewFrame.size.width/2, viewFrame.size.height/2);
-    
+
     float bottomspace = 0;
     UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
+
     if (UIInterfaceOrientationIsLandscape(currentOrientation)){
         float topspace = centreP.x - (formsheetFrame.size.width/2);
         bottomspace = viewFrame.size.width - topspace - formsheetFrame.size.width;
-        
+
     }else{
         float topspace = centreP.y - (formsheetFrame.size.height/2);
         bottomspace = viewFrame.size.height - topspace - formsheetFrame.size.height;
@@ -116,52 +116,52 @@ float keyboardH;
     [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
     NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    
+
     // Need to translate the bounds to account for rotation.
     keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
 
     keyboardH = keyboardBounds.size.height - bottomspace;
     // get a rect for the textView frame
 	CGRect containerFrame = self.bottomMessageView.frame;
-    
+
     if (UIInterfaceOrientationIsLandscape(currentOrientation)){
          containerFrame.origin.y = self.view.bounds.size.height - (keyboardH + containerFrame.size.height) + 14.0;
     }else{
         containerFrame.origin.y = self.view.bounds.size.height - (keyboardH + containerFrame.size.height) - 10.0;
     }
-    
+
     UIEdgeInsets contentInsets = self.chatTableView.contentInset; //UIEdgeInsetsMake(0.0, 0.0, keyboardH, 0.0);
     contentInsets.bottom+=keyboardH;
     self.chatTableView.contentInset = contentInsets;
     self.chatTableView.scrollIndicatorInsets = contentInsets;
-    
+
     [super scrollDownToLastMessage];
 	// animations settings
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:[duration doubleValue]];
     [UIView setAnimationCurve:[curve intValue]];
-	
+
 	// set views with new info
 	self.bottomMessageView.frame = containerFrame;
-	
+
 	// commit animations
 	[UIView commitAnimations];
 }
 
 - (void) keyboardWillHide:(NSNotification *)note{
-    
+
     CGRect formsheetFrame = self.navigationController.view.bounds;
     CGRect viewFrame = [UIScreen mainScreen].bounds;
     CGPoint centreP = CGPointMake(viewFrame.size.width/2, viewFrame.size.height/2);
-    
+
     float bottomspace = 0;
     UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
+
     if (UIInterfaceOrientationIsLandscape(currentOrientation)){
         float topspace = centreP.x - (formsheetFrame.size.width/2);
         bottomspace = viewFrame.size.width - topspace - formsheetFrame.size.width;
-        
+
     }else{
         float topspace = centreP.y - (formsheetFrame.size.height/2);
         bottomspace = viewFrame.size.height - topspace - formsheetFrame.size.height;
@@ -171,49 +171,49 @@ float keyboardH;
     [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
     NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    
+
     // Need to translate the bounds to account for rotation.
     keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
-    
+
     keyboardH = keyboardBounds.size.height - bottomspace;
-    
+
 	// get a rect for the textView frame
 	CGRect containerFrame = self.bottomMessageView.frame;
     containerFrame.origin.y = self.view.bounds.size.height - containerFrame.size.height;
-    
+
     UIEdgeInsets contentInsets = self.chatTableView.contentInset;
-    
+
     if(contentInsets.bottom > 0) {
         contentInsets.bottom-=keyboardH ;
         self.chatTableView.contentInset = contentInsets;
         self.chatTableView.scrollIndicatorInsets = contentInsets;
     }
-	
+
 	// animations settings
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:[duration doubleValue]];
     [UIView setAnimationCurve:[curve intValue]];
-    
+
 	// set views with new info
 	self.bottomMessageView.frame = containerFrame;
-	
+
 	// commit animations
 	[UIView commitAnimations];
-    
+
     NSString *msgAdded = self.messageText.text;
     self.messageText.text = msgAdded;
-    
+
     [self.messageText setNeedsDisplay];
     [self.messageText.internalTextView setNeedsDisplay];
-    
+
     [super scrollDownToLastMessage];
 }
 
 #pragma mark - Handle orientation
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-   
+
     msgEntered = self.messageText.text;
     self.messageText.text = @"";
     self.messageText.placeholder = @"";

@@ -36,23 +36,23 @@
 - (instancetype)initWithInstanceBaseUrl:(NSString*)instanceBaseURL toHelpEmail:(NSString*)helpEmail staffLoginEmail:(NSString*)loginEmail AndStaffLoginPassword:(NSString*)password
 {
     if (self = [super init]) {
-        
+
         self.instanceBaseURL = instanceBaseURL;
         self.toHelpEmail = helpEmail;
         self.staffLoginEmail = loginEmail;
         self.staffLoginPassword = password;
-        
-        
+
+
         NSURL* baseURL = [[NSURL alloc] initWithString:instanceBaseURL];
         AFHTTPRequestOperationManager* operationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
-        
+
         [operationManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
         [operationManager.requestSerializer setAuthorizationHeaderFieldWithUsername:loginEmail password:password];
         [operationManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [operationManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
+
         self.networkManager = operationManager;
-        
+
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
     }
@@ -85,7 +85,7 @@
 
 
     [self.networkManager POST:@"api/v2/cases" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+
         NSDictionary* responsedata = (NSDictionary*)responseObject;
 
         NSString* subject = [responsedata objectForKey:@"subject"];
@@ -118,9 +118,9 @@
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error creating case %@", error.localizedDescription);
-        
+
         failure(error);
-        
+
     }];
 }
 
@@ -168,9 +168,9 @@
                 if ([reply objectForKey:@"from"] != [NSNull null] )  {
                     update.from = [reply objectForKey:@"from"];
                 };
-                
+
                 update.content = [reply objectForKey:@"body"];
-                
+
 
                 if ([[reply objectForKey:@"direction"] isEqualToString:@"out"]) {
                     update.updateType = HATypeStaffReply;
@@ -184,11 +184,11 @@
 
                 [allReplies addObject:update];
             }
-            
+
             success(allReplies);
-            
+
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
+
             failure(error);
         }];
 
@@ -371,7 +371,7 @@
             failure(error);
         }];
     }
-    
+
 }
 
 - (void)checkAndFetchValidUser:(HSUser*)user withSuccess:(void (^)(HSUser* validUser))success failure:(void(^)(NSError* e))failure {

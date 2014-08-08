@@ -32,7 +32,7 @@
         // Initialization code
         HSAppearance* appearance = [[HSHelpStack instance] appearance];
         [appearance customizeTableView:self];
-        
+
     }
     return self;
 }

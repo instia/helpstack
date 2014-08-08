@@ -42,10 +42,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.nextButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleDone target:self action:@selector(submitPressed:)];
     self.navigationItem.rightBarButtonItem = self.nextButtonItem;
-    
+
     HSAppearance* appearance = [[HSHelpStack instance] appearance];
     self.view.backgroundColor = [appearance getBackgroundColor];
    
@@ -64,7 +64,7 @@
         [self.ticketSource registerUserWithFirstName:self.firstNameField.text lastName:self.lastNameField.text email:self.emailField.text success:^ {
 
             self.navigationItem.rightBarButtonItem = self.nextButtonItem;
-            
+
             [self startIssueReportController];
 
 
@@ -159,7 +159,7 @@
         [self submitPressed:nil];
         return YES;
     }
-    
+
     return NO;
 }
 
