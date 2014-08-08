@@ -171,7 +171,9 @@
 
         subjectField = (UITextField*) [cell viewWithTag:11];
         subjectField.delegate = self;
-        
+
+        subjectField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+
         attachmentImageBtn = (UIButton *) [cell viewWithTag:2];
         [attachmentImageBtn addTarget:self action:@selector(handleAttachment) forControlEvents:UIControlEventTouchUpInside];
         if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {

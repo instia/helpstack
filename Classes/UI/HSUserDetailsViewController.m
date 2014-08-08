@@ -48,7 +48,15 @@
 
     HSAppearance* appearance = [[HSHelpStack instance] appearance];
     self.view.backgroundColor = [appearance getBackgroundColor];
-   
+
+    self.firstNameField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+
+    self.lastNameField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+
+    self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.emailField.keyboardType = UIKeyboardTypeEmailAddress;
+
     self.title = @"Creating New Issue";
 }
 
