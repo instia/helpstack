@@ -33,6 +33,8 @@
 @property (nonatomic, strong) NSDictionary *articleSections;
 @property (nonatomic, strong) NSString *hfPriorityID;
 @property (nonatomic, strong) NSString *hfCategoryID;
+@property (nonatomic, strong) NSDictionary *hfTicketCustomFields;
+@property (nonatomic, strong) NSDictionary *hfUserCustomFields;
 
 @end
 
@@ -172,9 +174,24 @@
     [parameters setObject:self.hfPriorityID forKey:@"priority"];
     [parameters setObject:newTicket.subject forKey:@"subject"];
     [parameters setObject:newTicket.content forKey:@"text"];
+
+    NSString *ticketFieldPrefix = @"t-cf-";
+
+    for(NSString *ticketFieldKey in self.hfTicketCustomFields){
+        NSString *ticketFieldID = [ticketFieldPrefix stringByAppendingString:ticketFieldKey];
+        [parameters setObject:[self.hfTicketCustomFields objectForKey:ticketFieldKey] forKey:ticketFieldID];
+    }
+
+    NSString *userFieldPrefix = @"c-cf-";
+
+    for(NSString *userFieldKey in self.hfUserCustomFields){
+        NSString *userFieldID = [userFieldPrefix stringByAppendingString:userFieldKey];
+        [parameters setObject:[self.hfUserCustomFields objectForKey:userFieldKey] forKey:userFieldID];
+    }
+
     NSArray *attachments = newTicket.attachments;
     
-    [self.networkManager POST:@"api/1.1/json/new_ticket/" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+    [self.networkManager POST:@"api/1.1/json/tickets/" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
         if(attachments != nil && (attachments.count > 0)){
             for(HSAttachment *attachment in attachments){
                 [formData appendPartWithFileData:attachment.attachmentData name:@"attachments" fileName:((HSAttachment *)attachment).fileName mimeType:((HSAttachment *)attachment).mimeType];
