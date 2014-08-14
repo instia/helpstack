@@ -61,18 +61,21 @@
     [self addCreditsToTable];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated
+{
     [[UIApplication sharedApplication] setStatusBarStyle:self.currentStatusBarStyle];
 }
 
-- (void)addCreditsToTable {
+- (void)addCreditsToTable
+{
     if ([[HSHelpStack instance] showCredits]) {
         HSTableFooterCreditsView* footerView = [[HSTableFooterCreditsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 100)];
         self.tableView.tableFooterView = footerView;
     }
 }
 
--(void)setInputAccessoryView{
+-(void)setInputAccessoryView
+{
     self.messageAttachmentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
 }
 
@@ -82,11 +85,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)nextPressed:(id)sender {
+- (IBAction)nextPressed:(id)sender
+{
     [self performSegueWithIdentifier:@"NameAndEmailSegue" sender:self];
 }
 
-- (IBAction)addAttachments:(id)sender {
+- (IBAction)addAttachments:(id)sender
+{
     if(self.attachments != nil && self.attachments.count > 0){
 
         //remove attachment.
@@ -101,7 +106,8 @@
     }
 }
 
-- (IBAction)submitPressed:(id)sender {
+- (IBAction)submitPressed:(id)sender
+{
     //Validate for name, email, subject and message
 
     UIBarButtonItem* submitButton = sender;
@@ -122,11 +128,13 @@
     }
 }
 
-- (IBAction)cancelPressed:(id)sender {
+- (IBAction)cancelPressed:(id)sender
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(BOOL) checkValidity {
+-(BOOL) checkValidity
+{
     if(subjectField.text.length == 0) {
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Missing Subject" message:@"Please enter a subject" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
@@ -196,7 +204,8 @@
 
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if([HSAppearance isIPad]){
         //For iPad
         if(indexPath.row == 0){
@@ -233,18 +242,20 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return 1.0;
 }
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
     [[HSAppearance instance] customizeNavigationBar:viewController.navigationController.navigationBar];
 }
 
 
 - (BOOL)startMediaBrowserFromViewController: (UIViewController*) controller
-                               usingDelegate: (id <UIImagePickerControllerDelegate,
-                                               UINavigationControllerDelegate>) delegate {
+                              usingDelegate: (id <UIImagePickerControllerDelegate, UINavigationControllerDelegate>)delegate
+{
 
     if (([UIImagePickerController isSourceTypeAvailable:
           UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)
@@ -273,7 +284,8 @@
     return YES;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     if(textField == subjectField) {
         [messageField becomeFirstResponder];
         messageField.inputAccessoryView = self.messageAttachmentView;
@@ -283,12 +295,14 @@
     return NO;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
         messageField.inputAccessoryView = self.messageAttachmentView;
         [messageField becomeFirstResponder];
 }
 
-- (void)handleAttachment {
+- (void)handleAttachment
+{
     if (self.attachments != nil && self.attachments.count > 0) {
         UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                                 @"Change",
@@ -307,7 +321,8 @@
     }
 }
 
-- (void)refreshAttachmentsImage {
+- (void)refreshAttachmentsImage
+{
     if (self.attachments != nil && self.attachments.count > 0) {
         HSAttachment *attachment = [self.attachments objectAtIndex:0];
         [attachmentImageBtn setImage:attachment.attachmentImage forState:UIControlStateNormal];
@@ -319,7 +334,8 @@
 
 #pragma mark - UIActionSheet delegate
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     switch(buttonIndex){
         case 0:
             [self startMediaBrowserFromViewController: self
@@ -338,7 +354,8 @@
 
 #pragma mark - UIImagePicker delegate
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 
     if(self.attachments == nil){

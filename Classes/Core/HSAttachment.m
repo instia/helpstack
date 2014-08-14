@@ -24,12 +24,17 @@
 
 @implementation HSAttachment
 
-- (id)initWithUrl:(NSString *)url fileName:(NSString *)fileName mimeType:(NSString *)mimeType {
-    if (self = [super init]) {
+- (instancetype)initWithUrl:(NSString *)url
+                   fileName:(NSString *)fileName
+                   mimeType:(NSString *)mimeType
+{
+    self = [super init];
+    if (self) {
         self.url = url;
         self.fileName = fileName;
         self.mimeType = mimeType;
     }
+
     return self;
 }
 

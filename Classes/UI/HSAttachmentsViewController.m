@@ -31,12 +31,14 @@
 
 @implementation HSAttachmentsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
+
     return self;
 }
 
@@ -59,9 +61,6 @@
         [self.webView loadData:_attachment.attachmentData MIMEType:_attachment.mimeType textEncodingName:nil baseURL:nil];
     }
 
-
-
-
 	// Do any additional setup after loading the view.
 }
 
@@ -71,8 +70,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-
+- (BOOL)webView:(UIWebView *)webView
+shouldStartLoadWithRequest:(NSURLRequest *)request
+            navigationType:(UIWebViewNavigationType)navigationType
+{
     if(navigationType == UIWebViewNavigationTypeLinkClicked)
     {
         [[UIApplication sharedApplication] openURL:[request URL]];

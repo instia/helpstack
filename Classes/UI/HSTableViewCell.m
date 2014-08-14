@@ -27,7 +27,6 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-
     if (self) {
         // Initialization code
         [self initialize];
@@ -36,17 +35,19 @@
     return self;
 }
 
--(id) initWithCoder:(NSCoder *)aDecoder {
-
+-(id) initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
-    if(self) {
+    if (self) {
         [self initialize];
     }
+
     return self;
 
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if(self) {
         [self initialize];
@@ -54,7 +55,8 @@
     return self;
 }
 
-- (id)init {
+- (id)init
+{
     self = [super init];
     if(self) {
         [self initialize];
@@ -62,7 +64,8 @@
     return self;
 }
 
-- (void)initialize {
+- (void)initialize
+{
     [[[HSHelpStack instance] appearance] customizeCell:self];
     [[[HSHelpStack instance] appearance] customizeTextLabel:self.textLabel];
 }
@@ -74,9 +77,9 @@
     // Configure the view for the selected state
 }
 
--(void)drawRect:(CGRect)rect {
-
-}
+// -(void)drawRect:(CGRect)rect
+// {
+// }
 
 
 @end

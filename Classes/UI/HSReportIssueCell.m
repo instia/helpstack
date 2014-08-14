@@ -44,13 +44,14 @@
         self.selectionStyle = UITableViewCellSelectionStyleGray;
         self.accessoryType = UITableViewCellAccessoryNone;
     }
+
     return self;
 }
 
--(id) initWithCoder:(NSCoder *)aDecoder {
-
+-(id) initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
-    if(self) {
+    if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [[[HSHelpStack instance] appearance] customizeTextLabel:self.textLabel];
         self.textLabel.textColor = [UIColor colorWithRed:233.0/255.0f green:76.0/255.0f blue:67.0/255.0f alpha:1.0];
@@ -59,8 +60,8 @@
         self.selectionStyle = UITableViewCellSelectionStyleGray;
         self.accessoryType = UITableViewCellAccessoryNone;
     }
-    return self;
 
+    return self;
 }
 
 - (void)awakeFromNib

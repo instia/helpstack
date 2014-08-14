@@ -35,23 +35,23 @@
 /**
     The first name of the user
  */
-@property (nonatomic, strong) NSString* firstName;
+@property (nonatomic, strong) NSString *firstName;
 
 /**
     The last name of the user
  */
-@property (nonatomic, strong) NSString* lastName;
+@property (nonatomic, strong) NSString *lastName;
 
 /**
     The email of the user with which the user is registered with the selected help desk solution
  */
-@property (nonatomic, strong) NSString* email;
+@property (nonatomic, strong) NSString *email;
 
 /**
     Additional user information such as User ID obtained after the user is registered in the selected help desk solution.
  */
-@property (nonatomic, strong) NSString* apiHref;
+@property (nonatomic, strong) NSString *apiHref;
 
-@property (nonatomic, strong, readonly) NSString* name;
+@property (nonatomic, strong, readonly) NSString *name;
 
 @end

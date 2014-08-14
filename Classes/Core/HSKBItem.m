@@ -25,34 +25,48 @@
 
 @implementation HSKBItem
 
-- (id)initAsArticle:(NSString*)title textContent:(NSString*)content kbID:(NSString*)kbID{
-    if(self = [super init]) {
+- (instancetype)initAsArticle:(NSString *)title
+                  textContent:(NSString *)content
+                         kbID:(NSString *)kbID
+{
+    self = [super init];
+    if (self) {
         self.title = title;
         self.textContent = content;
         self.itemType = HSKBItemTypeArticle;
         self.kb_id = kbID;
     }
+
     return self;
 }
 
-- (id)initAsArticle:(NSString*)title htmlContent:(NSString*)content baseUrl:(NSString*)baseUrl kbID:(NSString*)kbID
+- (instancetype)initAsArticle:(NSString *)title
+                  htmlContent:(NSString *)content
+                      baseUrl:(NSString *)baseUrl
+                         kbID:(NSString *)kbID
 {
-    if(self = [super init]) {
+    self = [super init];
+    if (self) {
         self.title = title;
         self.htmlContent = content;
         self.baseUrl = baseUrl;
         self.itemType = HSKBItemTypeArticle;
         self.kb_id = kbID;
     }
+
     return self;
 }
 
-- (id)initAsSection:(NSString*)title kbID:(NSString*)kbID{
-    if(self = [super init]) {
+- (instancetype)initAsSection:(NSString *)title
+                         kbID:(NSString *)kbID
+{
+    self = [super init];
+    if (self) {
         self.title = title;
         self.itemType = HSKBItemTypeSection;
         self.kb_id = kbID;
     }
+
     return self;
 }
 
@@ -63,7 +77,6 @@
 
 - (NSString *)itemTypeString
 {
-
     if (_itemType == 0) {
         return @"Article";
     }
@@ -72,7 +85,6 @@
     }
 
     return nil;
-
 }
 
 @end

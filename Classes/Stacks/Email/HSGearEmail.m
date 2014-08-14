@@ -29,16 +29,20 @@
 
 @implementation HSGearEmail
 
-- (id)initWithSupportEmailAddress:(NSString*)emailAddress articlePath:(NSString *)articlePath
+- (instancetype)initWithSupportEmailAddress:(NSString *)emailAddress
+                                articlePath:(NSString *)articlePath
 {
-    if(self = [super init]) {
+    self = [super init];
+    if (self) {
         self.supportEmailAddress = emailAddress;
         self.localArticlePath = articlePath;
     }
+
     return self;
 }
 
-- (BOOL)doLetEmailHandleIssueCreation {
+- (BOOL)doLetEmailHandleIssueCreation
+{
     return YES;
 }
 

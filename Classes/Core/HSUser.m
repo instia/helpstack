@@ -24,18 +24,19 @@
 
 @implementation HSUser
 
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
     [aCoder encodeObject:self.firstName forKey:@"firstName"];
     [aCoder encodeObject:self.lastName forKey:@"lastName"];
     [aCoder encodeObject:self.email forKey:@"email"];
     [aCoder encodeObject:self.apiHref forKey:@"apiHref"];
 
 }
-- (id)initWithCoder:(NSCoder *)aDecoder {
 
-    if (self = [super init]) {
-
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
         self.firstName = [aDecoder decodeObjectForKey:@"firstName"];
         self.lastName = [aDecoder decodeObjectForKey:@"lastName"];
         self.email = [aDecoder decodeObjectForKey:@"email"];
@@ -45,7 +46,8 @@
     return self;
 }
 
-- (NSString *)name {
+- (NSString *)name
+{
     if (self.firstName == nil && self.lastName == nil) return nil;
     if (self.lastName == nil) return self.firstName;
     if (self.firstName == nil) return self.lastName;

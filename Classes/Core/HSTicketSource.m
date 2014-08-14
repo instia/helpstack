@@ -38,29 +38,34 @@
 @implementation HSTicketSource
 
 
-+ (instancetype)createInstance {
-    HSGear* gear = [[HSHelpStack instance] gear];
++ (instancetype)createInstance
+{
+    HSGear *gear = [[HSHelpStack instance] gear];
     NSAssert (gear != nil, @"No gear was set to HSHelpStack");
-    HSTicketSource* source = [[HSTicketSource alloc] initWithGear:gear];
+    HSTicketSource *source = [[HSTicketSource alloc] initWithGear:gear];
     return source;
 }
 
 /**
     Set HAGear, so its method can be called.
  */
-- (id)initWithGear:(HSGear *)gear {
-    if(self = [super init]) {
+- (instancetype)initWithGear:(HSGear *)gear
+{
+    self = [super init];
+    if (self) {
         [self setGear:gear];
         [self initializeTicketFromCache];
     }
+
     return self;
 }
 
 /**
  @warning ticketProtocol in given gear should not be nil.
  */
-- (void)initializeTicketFromCache {
-    NSArray* array = [HSTicketSource ticketsAtPath:TICKET_CACHE_FILE_NAME];
+- (void)initializeTicketFromCache
+{
+    NSArray *array = [HSTicketSource ticketsAtPath:TICKET_CACHE_FILE_NAME];
     if (array!=nil) {
         self.ticketArray = [NSMutableArray arrayWithArray:array];
     }
@@ -69,9 +74,13 @@
 }
 
 
-- (void)registerUserWithFirstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email success:(void (^)(void))success failure:(void (^)(NSError *error))failure {
-
-    HSUser* user = [[HSUser alloc] init];
+- (void)registerUserWithFirstName:(NSString *)firstName
+                         lastName:(NSString *)lastName
+                            email:(NSString *)email
+                          success:(void(^)(void))success
+                          failure:(void(^)(NSError *error))failure
+{
+    HSUser *user = [[HSUser alloc] init];
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
@@ -96,13 +105,16 @@
 
 // Store HSUser and check for it while creating a new ticket
 
-- (BOOL)shouldShowUserDetailsFormWhenCreatingTicket {
-    NSFileManager* defaultManager = [NSFileManager defaultManager];
+- (BOOL)shouldShowUserDetailsFormWhenCreatingTicket
+{
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
     return (![defaultManager fileExistsAtPath:[HSTicketSource fileCachePath:USER_CACHE_FILE_NAME]]);
 }
 //////////////////////////////////////////////////
 
-- (void)prepareTicket:(void (^)(void))success failure:(void (^)(NSError *))failure {
+- (void)prepareTicket:(void(^)(void))success
+              failure:(void(^)(NSError *))failure
+{
     // Checking if gear implements fetchAllTicket:failure:
     if ([self.gear respondsToSelector:@selector(fetchAllTicketForUser:success:failure:)]) {
         [self.gear fetchAllTicketForUser:self.user success:^(NSMutableArray *ticketarray) {
@@ -125,18 +137,22 @@
     }
 }
 
-- (NSInteger)ticketCount {
+- (NSInteger)ticketCount
+{
     return [self.ticketArray count];
 }
 
-- (HSTicket *)ticketAtPosition:(NSInteger)position {
-    HSTicket* ticket = [self.ticketArray objectAtIndex:position];
+- (HSTicket *)ticketAtPosition:(NSInteger)position
+{
+    HSTicket *ticket = [self.ticketArray objectAtIndex:position];
     return ticket;
 }
 
 
-- (void)createNewTicket:(HSNewTicket *)details success:(void (^)(void))success failure:(void (^)(NSError *))failure {
-
+- (void)createNewTicket:(HSNewTicket *)details
+                success:(void(^)(void))success
+                failure:(void(^)(NSError *))failure
+{
     // Checking if gear implements createTicket:success:failure:
     if([self.gear respondsToSelector:@selector(createNewTicket:byUser:success:failure:)]) {
         [self.gear createNewTicket:details byUser:self.user success:^(HSTicket *ticket, HSUser* user) {
@@ -167,8 +183,10 @@
     }
 }
 
-- (void)prepareUpdate:(HSTicket *)ticketDict success:(void (^)(void))success failure:(void (^)(NSError *))failure {
-
+- (void)prepareUpdate:(HSTicket *)ticketDict
+              success:(void(^)(void))success
+              failure:(void(^)(NSError *))failure
+{
     // Preparing update array for new ticket, dumping array for old ticket
     [self.updateArray removeAllObjects];
 
@@ -188,19 +206,25 @@
     }
 }
 
-- (NSInteger)updateCount {
+- (NSInteger)updateCount
+{
     return [self.updateArray count];
 }
 
-- (HSUpdate *)updateAtPosition:(NSInteger)position {
-    HSUpdate* update = [self.updateArray objectAtIndex:position];
+- (HSUpdate *)updateAtPosition:(NSInteger)position
+{
+    HSUpdate *update = [self.updateArray objectAtIndex:position];
     return update;
 }
 
-- (void)addReply:(HSTicketReply *)details ticket:(HSTicket *)ticketDict success:(void (^)(void))success failure:(void (^)(NSError *))failure {
+- (void)addReply:(HSTicketReply *)details
+          ticket:(HSTicket *)ticketDict
+         success:(void(^)(void))success
+         failure:(void(^)(NSError *))failure
+{
     // Checking if gear implements addReply:ticket:success:failure:
 
-    __block NSMutableArray* updates = self.updateArray;
+    __block NSMutableArray *updates = self.updateArray;
 
     if([self.gear respondsToSelector:@selector(addReply:forTicket:byUser:success:failure:)]) {
         [self.gear addReply:details forTicket:ticketDict byUser:self.user success:^(HSUpdate *update) {
@@ -219,7 +243,8 @@
 }
 
 // Ticket Protocol properties
-- (BOOL) isTicketProtocolImplemented {
+- (BOOL) isTicketProtocolImplemented
+{
     if ([self.gear respondsToSelector:@selector(doLetEmailHandleIssueCreation)]) {
         return ![self.gear doLetEmailHandleIssueCreation];
     }
@@ -227,16 +252,19 @@
     return YES;
 }
 
-- (NSString*) supportEmailAddress {
+- (NSString *) supportEmailAddress
+{
     return self.gear.supportEmailAddress;
 }
 
 #pragma mark - Cache functions
 
-+ (void)saveTickets:(NSArray *)tickets atPath:(NSString *)fileName {
-    NSString* cacheFilePath = [self fileCachePath:fileName];
++ (void)saveTickets:(NSArray *)tickets
+             atPath:(NSString *)fileName
+{
+    NSString *cacheFilePath = [self fileCachePath:fileName];
 
-    NSFileManager* fm = [NSFileManager defaultManager];
+    NSFileManager *fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:cacheFilePath]) {
         [fm removeItemAtPath:cacheFilePath error:nil];
     }
@@ -244,15 +272,18 @@
     [NSKeyedArchiver archiveRootObject:tickets toFile:cacheFilePath];
 }
 
-+ (NSArray *)ticketsAtPath:(NSString *)fileName {
-    NSString* cacheFilePath = [self fileCachePath:fileName];
++ (NSArray *)ticketsAtPath:(NSString *)fileName
+{
+    NSString *cacheFilePath = [self fileCachePath:fileName];
     return [NSKeyedUnarchiver unarchiveObjectWithFile:cacheFilePath];;
 }
 
-+ (void)saveUser:(HSUser *)user atPath:(NSString *)fileName {
-    NSString* cacheFilePath = [self fileCachePath:fileName];
++ (void)saveUser:(HSUser *)user
+          atPath:(NSString *)fileName
+{
+    NSString *cacheFilePath = [self fileCachePath:fileName];
 
-    NSFileManager* fm = [NSFileManager defaultManager];
+    NSFileManager *fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:cacheFilePath]) {
         [fm removeItemAtPath:cacheFilePath error:nil];
     }
@@ -262,22 +293,26 @@
     }
 }
 
-+ (HSUser *)userAtPath:(NSString *)fileName {
-    NSString* cacheFilePath = [self fileCachePath:fileName];
++ (HSUser *)userAtPath:(NSString *)fileName
+{
+    NSString *cacheFilePath = [self fileCachePath:fileName];
     return [NSKeyedUnarchiver unarchiveObjectWithFile:cacheFilePath];;
 }
 
-+ (NSString *)directoryName {
++ (NSString *)directoryName
+{
     return CACHE_DIRECTORY_NAME;
 }
 
-+ (NSString *) fileCachePath:(NSString *)fileName {
-    NSString* cacheDirectoryPath = [self getCacheDirectory];
-    NSString* cacheFilePath = [cacheDirectoryPath stringByAppendingPathComponent:fileName];
++ (NSString *) fileCachePath:(NSString *)fileName
+{
+    NSString *cacheDirectoryPath = [self getCacheDirectory];
+    NSString *cacheFilePath = [cacheDirectoryPath stringByAppendingPathComponent:fileName];
     return cacheFilePath;
 }
 
-+ (NSString *) getCacheDirectory {
++ (NSString *) getCacheDirectory
+{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     documentsDirectory = [documentsDirectory stringByAppendingPathComponent:[self directoryName]];

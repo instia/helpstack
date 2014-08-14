@@ -22,6 +22,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "HSGear.h"
 
 
@@ -30,14 +31,14 @@
 
 @interface HSHelpStack : NSObject
 
-+ (id)instance;
++ (instancetype)instance;
 
 /**
     Set the type of gear to be used.
  */
-@property (nonatomic, strong, readwrite) HSGear* gear;
+@property (nonatomic, strong, readwrite) HSGear *gear;
 
-@property (nonatomic, strong, readonly) HSAppearance* appearance;
+@property (nonatomic, strong, readonly) HSAppearance *appearance;
 
 @property (nonatomic, assign) BOOL requiresNetwork;
 
@@ -53,8 +54,11 @@
 
     Note: There should be a gear set, otherwise gear initialization will fail.
  */
-- (void)showHelp:(UIViewController*)controller;
-- (void)showHelp:(UIViewController*)controller completion:(void (^)(void))completion;
-- (void)setThemeFrompList:(NSString*)pListPath;
+- (void)showHelp:(UIViewController *)controller;
+
+- (void)showHelp:(UIViewController *)controller
+      completion:(void(^)(void))completion;
+
+- (void)setThemeFrompList:(NSString *)pListPath;
 
 @end

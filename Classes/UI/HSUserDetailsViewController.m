@@ -31,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 
-
 @property (strong, nonatomic) UIBarButtonItem* nextButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 
@@ -90,7 +89,8 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
@@ -108,8 +108,8 @@
 }
 
 /*Validates the email address entered by the user */
-- (BOOL)checkValidity {
-
+- (BOOL)checkValidity
+{
     if(self.firstNameField.text ==nil || self.firstNameField.text.length == 0) {
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Missing First Name" message:@"Please give your first name." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
@@ -132,7 +132,8 @@
 }
 
 
-- (void)startIssueReportController {
+- (void)startIssueReportController
+{
     HSNewIssueViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"HSReportIssue"];
     controller.createNewTicket = self.createNewTicket;
     controller.delegate = self.delegate;
@@ -140,7 +141,8 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     HSNewIssueViewController* controller = (HSNewIssueViewController *)[segue destinationViewController];
     controller.createNewTicket = self.createNewTicket;
     controller.delegate = self.delegate;
@@ -155,8 +157,8 @@
 }
 
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     if(textField == self.firstNameField) {
         [self.lastNameField becomeFirstResponder];
         return YES;

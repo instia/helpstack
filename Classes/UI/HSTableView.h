@@ -26,6 +26,6 @@
 @interface HSTableView : UITableView
 
 
--(UIView *)getHeaderViewforFrame:(CGRect)frame forTitle:(NSString *)title;
+- (UIView *)getHeaderViewforFrame:(CGRect)frame forTitle:(NSString *)title;
 
 @end

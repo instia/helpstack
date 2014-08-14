@@ -37,7 +37,6 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-
     if (self) {
         // Initialization code
     }
@@ -45,7 +44,7 @@
     return self;
 }
 
--(void)setText:(NSString *)text
+- (void)setText:(NSString *)text
 {
     BOOL originalValue = self.scrollEnabled;
     //If one of GrowingTextView's superviews is a scrollView, and self.scrollEnabled == NO,
@@ -61,7 +60,7 @@
     [super setScrollEnabled:isScrollable];
 }
 
--(void)setContentOffset:(CGPoint)s
+- (void)setContentOffset:(CGPoint)s
 {
 	if(self.tracking || self.decelerating){
 		//initiated by user...
@@ -85,7 +84,7 @@
 	[super setContentOffset:s];
 }
 
--(void)setContentInset:(UIEdgeInsets)s
+- (void)setContentInset:(UIEdgeInsets)s
 {
 	UIEdgeInsets insets = s;
 
@@ -95,7 +94,7 @@
 	[super setContentInset:insets];
 }
 
--(void)setContentSize:(CGSize)contentSize
+- (void)setContentSize:(CGSize)contentSize
 {
     // is this an iOS5 bug? Need testing!
     if(self.contentSize.height > contentSize.height)

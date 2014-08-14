@@ -32,9 +32,10 @@
     [aCoder encodeObject:self.ticketID forKey:@"ticketID"];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
         self.subject = [aDecoder decodeObjectForKey:@"subject"];
         self.ticketID = [aDecoder decodeObjectForKey:@"ticketID"];
     }

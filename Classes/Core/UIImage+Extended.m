@@ -24,9 +24,9 @@
 
 @implementation UIImage (Extended)
 
-- (NSString*)base64EncodedString
+- (NSString *)base64EncodedString
 {
-    NSData* imageencodedData = [UIImagePNGRepresentation(self) base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSData *imageencodedData = [UIImagePNGRepresentation(self) base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
     return [NSString stringWithUTF8String:[imageencodedData bytes]];
 }
 

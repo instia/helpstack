@@ -37,10 +37,10 @@ typedef NS_OPTIONS(NSUInteger, HSKBItemType) {
 @interface HSKBItem : NSObject
 
 // Required
-@property (nonatomic, strong) NSString* title;
-@property (nonatomic, strong) NSString* htmlContent;
-@property (nonatomic, strong) NSString* textContent;
-@property (nonatomic, strong) NSString* baseUrl;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *htmlContent;
+@property (nonatomic, strong) NSString *textContent;
+@property (nonatomic, strong) NSString *baseUrl;
 
 @property (nonatomic, assign) HSKBItemType itemType;
 
@@ -54,8 +54,14 @@ typedef NS_OPTIONS(NSUInteger, HSKBItemType) {
 
     You can assign nil KBid.
  */
-- (id)initAsArticle:(NSString*)title textContent:(NSString*)content kbID:(NSString*)kbID;
-- (id)initAsArticle:(NSString*)title htmlContent:(NSString*)content baseUrl:(NSString*)baseUrl kbID:(NSString*)kbID;
+- (instancetype)initAsArticle:(NSString *)title
+                  textContent:(NSString *)content
+                         kbID:(NSString *)kbID;
+
+- (instancetype)initAsArticle:(NSString *)title
+                  htmlContent:(NSString *)content
+                      baseUrl:(NSString *)baseUrl
+                         kbID:(NSString *)kbID;
 
 /**
  Kb will be prepared with given title, content and id,  its type will be set as Section.
@@ -64,6 +70,7 @@ typedef NS_OPTIONS(NSUInteger, HSKBItemType) {
 
  You can assign nil KBid.
  */
-- (id)initAsSection:(NSString*)title kbID:(NSString*)kbID;
+- (instancetype)initAsSection:(NSString *)title
+                         kbID:(NSString *)kbID;
 
 @end

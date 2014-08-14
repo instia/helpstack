@@ -24,11 +24,13 @@
 
 @interface HSZenDeskGear : HSGear
 
-- (id)initWithInstanceUrl:(NSString*)instanceUrl staffEmailAddress:(NSString *)staffEmailAddress
-                 apiToken:(NSString *)apiToken localArticlePath:(NSString *)localArticlePath;
+- (instancetype)initWithInstanceUrl:(NSString *)instanceUrl
+                  staffEmailAddress:(NSString *)staffEmailAddress
+                           apiToken:(NSString *)apiToken
+                   localArticlePath:(NSString *)localArticlePath;
 
-@property (nonatomic, strong) NSString* staffEmailAddress;
-@property (nonatomic, strong) NSString* apiToken;
-@property (nonatomic, strong) NSString* localArticlePath;
+@property (nonatomic, strong) NSString *staffEmailAddress;
+@property (nonatomic, strong) NSString *apiToken;
+@property (nonatomic, strong) NSString *localArticlePath;
 
 @end

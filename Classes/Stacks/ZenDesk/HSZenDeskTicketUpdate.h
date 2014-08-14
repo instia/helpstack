@@ -26,7 +26,11 @@
 
 @property (nonatomic, assign) Boolean publicNote;
 
-- (id)initWithAudit:(NSDictionary*) audit usersDictionary:(NSArray*) usersDictionary;
-- (id)initUserReplyWithAuthorName:(NSString*)authorname message:(NSString*)message attachments:(NSArray *)attachments;
+- (instancetype)initWithAudit:(NSDictionary *)audit
+              usersDictionary:(NSArray *)usersDictionary;
+
+- (instancetype)initUserReplyWithAuthorName:(NSString *)authorname
+                                    message:(NSString *)message
+                                attachments:(NSArray *)attachments;
 
 @end

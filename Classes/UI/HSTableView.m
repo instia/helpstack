@@ -34,10 +34,12 @@
         [appearance customizeTableView:self];
 
     }
+
     return self;
 }
 
--(UIView *)getHeaderViewforFrame:(CGRect)frame forTitle:(NSString *)title{
+-(UIView *)getHeaderViewforFrame:(CGRect)frame forTitle:(NSString *)title
+{
     UIView *headerView = [[UIView alloc] initWithFrame:frame];
     UILabel *headerTitle = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 0, 200.0, 30.0)];
     [headerView addSubview:headerTitle];

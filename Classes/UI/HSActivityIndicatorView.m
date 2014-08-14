@@ -36,6 +36,7 @@
             self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
         }
     }
+
     return self;
 }
 

@@ -29,14 +29,17 @@
 
 @implementation HSZenDeskTicketUpdate
 
-- (id)initWithAudit:(NSDictionary *) audit usersDictionary:(NSArray *) usersDictionary {
-    if(self = [super init]) {
-        NSArray* array = [audit objectForKey:@"events"];
+- (instancetype)initWithAudit:(NSDictionary *)
+        audit usersDictionary:(NSArray *)usersDictionary
+{
+    self = [super init];
+    if (self) {
+        NSArray *array = [audit objectForKey:@"events"];
         for (NSDictionary *eventObject in array) {
             if([[eventObject objectForKey:@"type"] isEqualToString:@"Comment"]) {
                 self.content = [eventObject objectForKey:@"body"];
                 NSInteger author_id = [[eventObject objectForKey:@"author_id"] integerValue];
-                NSDictionary* author = [self searchForUser:author_id array:usersDictionary];
+                NSDictionary *author = [self searchForUser:author_id array:usersDictionary];
 
                 if ([author objectForKey:@"name"] != [NSNull null]) {
                     self.from = [author objectForKey:@"name"];
@@ -52,16 +55,16 @@
                 self.updatedAt = date;
 
                 self.updateType = HATypeStaffReply;
-                NSString* role = [author objectForKey:@"role"];
+                NSString *role = [author objectForKey:@"role"];
                 if ([role isEqualToString:@"end-user"]) {
                     self.updateType = HATypeUserReply;
                 }
 
                 // Attachments
-                NSArray* attachments = [eventObject objectForKey:@"attachments"];
-                NSMutableArray* localAttachmnets = [[NSMutableArray alloc] init];
-                for (NSDictionary* attchmentObject in attachments) {
-                    HSAttachment* localAttach = [[HSAttachment alloc] init];
+                NSArray *attachments = [eventObject objectForKey:@"attachments"];
+                NSMutableArray *localAttachmnets = [[NSMutableArray alloc] init];
+                for (NSDictionary *attchmentObject in attachments) {
+                    HSAttachment *localAttach = [[HSAttachment alloc] init];
                     localAttach.url = [attchmentObject objectForKey:@"content_url"];
                     localAttach.fileName = [attchmentObject objectForKey:@"file_name"];
                     localAttach.mimeType = [attchmentObject objectForKey:@"content_type"];
@@ -74,20 +77,16 @@
             }
         }
     }
+
     return self;
 }
 
-- (NSDictionary *) searchForUser:(NSInteger) user_id array:(NSArray *) dictionary {
-    for (NSDictionary *object in dictionary) {
-        if([[object objectForKey:@"id"] integerValue] == user_id) {
-            return object;
-        }
-    }
-    return nil;
-}
-
-- (id)initUserReplyWithAuthorName:(NSString *)authorname message:(NSString *)message attachments:(NSArray *)attachments {
-    if(self = [super init]) {
+- (instancetype)initUserReplyWithAuthorName:(NSString *)authorname
+                                    message:(NSString *)message
+                                attachments:(NSArray *)attachments
+{
+    self = [super init];
+    if (self) {
         self.from = authorname;
         self.content = message;
         self.publicNote = true;
@@ -95,8 +94,19 @@
         self.attachments = [[NSArray alloc] initWithArray:attachments];
         self.updateType = HATypeUserReply;
     }
+
     return self;
 }
 
+- (NSDictionary *)searchForUser:(NSInteger)user_id
+                          array:(NSArray *)dictionary
+{
+    for (NSDictionary *object in dictionary) {
+        if([[object objectForKey:@"id"] integerValue] == user_id) {
+            return object;
+        }
+    }
+    return nil;
+}
 
 @end

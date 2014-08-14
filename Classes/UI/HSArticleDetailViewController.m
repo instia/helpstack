@@ -46,7 +46,7 @@
 
     self.title = @"Article";
 
-    NSString* content;
+    NSString *content;
     if(self.article.htmlContent) {
         content = self.article.htmlContent;
         content = [self stripUnwantedHtmlTags:content];
@@ -58,9 +58,9 @@
 
 
     // patch the content to add title and font
-    NSString* wrapperContent = [NSString stringWithFormat:HTML_WRAPPER_WITH_TITLE,  self.article.title, content];
+    NSString *wrapperContent = [NSString stringWithFormat:HTML_WRAPPER_WITH_TITLE,  self.article.title, content];
 
-    NSURL* baseUrl = [NSURL URLWithString:self.article.baseUrl];
+    NSURL *baseUrl = [NSURL URLWithString:self.article.baseUrl];
     [self.webView loadHTMLString:wrapperContent baseURL:baseUrl];
     self.webView.scalesPageToFit = false;
     self.webView.delegate = self;
@@ -72,8 +72,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-
+- (BOOL)webView:(UIWebView *)webView
+shouldStartLoadWithRequest:(NSURLRequest *)request
+            navigationType:(UIWebViewNavigationType)navigationType
+{
     if(navigationType == UIWebViewNavigationTypeLinkClicked)
     {
         [[UIApplication sharedApplication] openURL:[request URL]];
@@ -96,7 +98,8 @@
     self.loadingView.hidden = YES;
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+- (void)webView:(UIWebView *)webView
+didFailLoadWithError:(NSError *)error
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self.loadingView stopAnimating];

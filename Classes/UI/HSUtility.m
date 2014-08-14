@@ -11,7 +11,8 @@
 
 @implementation HSUtility
 
-+ (Boolean) isValidEmail: (NSString*) email {
++ (Boolean)isValidEmail:(NSString*)email
+{
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:
                                   @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"

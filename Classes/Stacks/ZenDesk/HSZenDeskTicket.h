@@ -25,7 +25,7 @@
 
 @interface HSZenDeskTicket : HSTicket
 
-- (id)initWithRequestFields:(NSDictionary*)fields;
-- (id)initWithTicketFields:(NSDictionary*)fields;
+- (instancetype)initWithRequestFields:(NSDictionary *)fields;
+- (instancetype)initWithTicketFields:(NSDictionary *)fields;
 
 @end

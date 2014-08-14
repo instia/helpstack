@@ -20,14 +20,14 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //THE SOFTWARE.
 
-
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface HSAppearance : NSObject
 
 @property (nonatomic, strong) NSDictionary *customThemeProperties;
 
-+ (id)instance;
++ (instancetype)instance;
 
 - (UIColor *)getBackgroundColor;
 - (void)customizeNavigationBar:(UINavigationBar *)navigationBar;
@@ -42,14 +42,13 @@
 - (void)customizeRightBubble:(UIView *)bubble;
 - (void)customizeLeftBubble:(UIView *)bubble;
 - (UIFont *)getBubbleTextFont;
--(void)customizeRightBubbleText:(UITextView *)BubbleText;
--(void)customizeLeftBubbleText:(UITextView *)BubbleText;
--(void) customizeBubbleArrowForRightChatBubble:(UIView *)arrowView;
--(void) customizeBubbleArrowForLeftChatBubble:(UIView *)arrowView;
+- (void)customizeRightBubbleText:(UITextView *)BubbleText;
+- (void)customizeLeftBubbleText:(UITextView *)BubbleText;
+- (void) customizeBubbleArrowForRightChatBubble:(UIView *)arrowView;
+- (void) customizeBubbleArrowForLeftChatBubble:(UIView *)arrowView;
 
 + (BOOL)isTall;
 + (BOOL)isIPad;
 + (BOOL)isIOS6;
-
 
 @end

@@ -33,7 +33,6 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-
     if (self) {
         // Initialization code
         self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, -5, frame.size.width, frame.size.height)];
@@ -47,10 +46,9 @@
     return self;
 }
 
--(id) initWithCoder:(NSCoder *)aDecoder {
-
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
-
     if (self) {
         // Initialization code
         self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, -5, self.frame.size.width, self.frame.size.height)];
@@ -64,8 +62,8 @@
     return self;
 }
 
--(UITextView *)getChatTextView {
-
+- (UITextView *)getChatTextView
+{
     if(!self.messageTextView) {
         self.messageTextView = [[UITextView alloc] init];
     }

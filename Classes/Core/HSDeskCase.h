@@ -24,6 +24,6 @@
 
 @interface HSDeskCase : HSTicket <NSCoding>
 
-@property (nonatomic, strong) NSString* apiHref;
+@property (nonatomic, strong) NSString *apiHref;
 
 @end

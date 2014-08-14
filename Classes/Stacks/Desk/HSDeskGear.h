@@ -31,11 +31,14 @@
 @interface HSDeskGear : HSGear
 
 // Specify the properties required for this Gear.
-@property (nonatomic, strong) NSString* instanceBaseURL;
-@property (nonatomic, strong) NSString* toHelpEmail;
-@property (nonatomic, strong) NSString* staffLoginEmail;
-@property (nonatomic, strong) NSString* staffLoginPassword;
+@property (nonatomic, strong) NSString *instanceBaseURL;
+@property (nonatomic, strong) NSString *toHelpEmail;
+@property (nonatomic, strong) NSString *staffLoginEmail;
+@property (nonatomic, strong) NSString *staffLoginPassword;
 
-- (instancetype)initWithInstanceBaseUrl:(NSString*)instanceBaseURL toHelpEmail:(NSString*)helpEmail staffLoginEmail:(NSString*)loginEmail AndStaffLoginPassword:(NSString*)password;
+- (instancetype)initWithInstanceBaseUrl:(NSString *)instanceBaseURL
+                            toHelpEmail:(NSString *)helpEmail
+                        staffLoginEmail:(NSString *)loginEmail
+                  AndStaffLoginPassword:(NSString *)password;
 
 @end

@@ -67,7 +67,7 @@
 	int minNumberOfLines;
 
 	BOOL animateHeightChange;
-    NSTimeInterval animationDuration;
+  NSTimeInterval animationDuration;
 
 	//uitextview properties
 	NSObject <HPGrowingTextViewDelegate> *__unsafe_unretained delegate;
@@ -78,7 +78,7 @@
 	UIReturnKeyType returnKeyType;
 	UIKeyboardType keyboardType;
 
-    UIEdgeInsets contentInset;
+  UIEdgeInsets contentInset;
 }
 
 //real class properties

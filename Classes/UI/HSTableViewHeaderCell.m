@@ -35,7 +35,6 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-
     if (self) {
         float leftPadding = 15.0;
         if ([HSAppearance isIOS6]) {

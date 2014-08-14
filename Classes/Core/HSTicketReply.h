@@ -25,9 +25,9 @@
 @interface HSTicketReply : NSObject
 
 // required
-@property (nonatomic, strong) NSString* content;
+@property (nonatomic, strong) NSString *content;
 
 //optional
-@property (nonatomic, strong) NSArray* attachments;
+@property (nonatomic, strong) NSArray *attachments;
 
 @end

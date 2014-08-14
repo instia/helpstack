@@ -10,10 +10,8 @@
 
 @interface HSUtility : NSObject
 
-+ (Boolean) isValidEmail: (NSString*) email;
-
-+ (NSString*) stringFortimeSinceDateFull: (NSDate*) date;
-
-+ (NSString*) deviceInformation;
++ (Boolean)isValidEmail:(NSString*)email;
++ (NSString*)stringFortimeSinceDateFull:(NSDate*)date;
++ (NSString*)deviceInformation;
 
 @end

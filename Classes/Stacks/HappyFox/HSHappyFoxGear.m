@@ -27,26 +27,24 @@
 
 @interface HSHappyFoxGear ()
 
-@property (nonatomic, strong) NSString *api_key;
-@property (nonatomic, strong) NSString *auth_code;
-@property (nonatomic, strong) NSString *instanceUrl;
-@property (nonatomic, strong) NSDictionary *articleSections;
-@property (nonatomic, strong) NSString *hfPriorityID;
-@property (nonatomic, strong) NSString *hfCategoryID;
-@property (nonatomic, strong) NSDictionary *hfTicketCustomFields;
-@property (nonatomic, strong) NSDictionary *hfUserCustomFields;
-
 @end
 
 @implementation HSHappyFoxGear
 
-- (id)initWithInstanceUrl:(NSString*) instanceUrl apiKey:(NSString *)api_key authoCode:(NSString *)auth_code priorityID: (NSString *)priority_ID categoryID: (NSString *) category_ID{
-    if ( (self = [super init]) ) {
-        self.api_key = api_key;
+- (instancetype)initWithInstanceUrl:(NSString *)instanceUrl
+                             apiKey:(NSString *)apiKey
+                          authoCode:(NSString *)auth_code
+                         priorityID:(NSString *)priority_ID
+                         categoryID:(NSString *)category_ID
+{
+    self = [super init];
+    if (self) {
+        self.api_key = apiKey;
         self.auth_code = auth_code;
         self.instanceUrl = instanceUrl;
         self.hfCategoryID = category_ID;
         self.hfPriorityID = priority_ID;
+
         self.networkManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:instanceUrl]];
         [self.networkManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
         [self.networkManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
@@ -54,10 +52,14 @@
 
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     }
+
     return self;
 }
 
-- (void)fetchKBForSection:(HSKBItem*)section success:(void (^)(NSMutableArray* kbarray))success failure:(void(^)(NSError*))failure{
+- (void)fetchKBForSection:(HSKBItem *)section
+                  success:(void(^)(NSMutableArray *kbarray))success
+                  failure:(void(^)(NSError *))failure
+{
     if (section == nil){
         NSString *url = @"api/1.1/json/kb/sections/";
         if(self.hfSectionID){
@@ -88,7 +90,8 @@
     }
 }
 
--(NSMutableArray *)getArticlesFromSection:(NSDictionary *)section{
+- (NSMutableArray *)getArticlesFromSection:(NSDictionary *)section
+{
     NSMutableArray *articles = [[NSMutableArray alloc] init];
     NSArray *fetchedarticles = [section objectForKey:@"articles"];
     for(id article in fetchedarticles){
@@ -98,7 +101,8 @@
     return articles;
 }
 
--(NSMutableArray *)getSectionsFromData:(NSDictionary *)responseData{
+- (NSMutableArray *)getSectionsFromData:(NSDictionary *)responseData
+{
     NSMutableArray *sections = [[NSMutableArray alloc] init];
     for(id section in responseData){
         if([[section objectForKey:@"articles"] count]>0){
@@ -109,7 +113,11 @@
     return sections;
 }
 
-- (void)fetchAllUpdateForTicket:(HSTicket *)ticket forUser:(HSUser *)user success:(void (^)(NSMutableArray* updateArray))success failure:(void (^)(NSError* e))failure {
+- (void)fetchAllUpdateForTicket:(HSTicket *)ticket
+                        forUser:(HSUser *)user
+                        success:(void(^)(NSMutableArray *updateArray))success
+                        failure:(void(^)(NSError *e))failure
+{
     NSString *getString = @"api/1.1/json/ticket/";
     getString = [getString stringByAppendingString:ticket.ticketID];
     [self.networkManager GET:getString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -120,7 +128,8 @@
     }];
 }
 
--(NSMutableArray *)getTicketUpdatesFromResponseData:(NSDictionary *)responseData{
+- (NSMutableArray *)getTicketUpdatesFromResponseData:(NSDictionary *)responseData
+{
     NSArray *updates = [responseData objectForKey:@"updates"];
     NSMutableArray *tickUpdates = [[NSMutableArray alloc] init];
     for(id updateDict in updates){
@@ -163,8 +172,12 @@
     return tickUpdates;
 }
 
-- (void)createNewTicket:(HSNewTicket *)newTicket byUser:(HSUser *)user success:(void (^)(HSTicket* ticket, HSUser * user))success failure:(void (^)(NSError* e))failure {
-    HSUser* hfUser = user;
+- (void)createNewTicket:(HSNewTicket *)newTicket
+                 byUser:(HSUser *)user
+                success:(void(^)(HSTicket *ticket, HSUser *user))success
+                failure:(void(^)(NSError *e))failure
+{
+    HSUser *hfUser = user;
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setObject:hfUser.name forKey:@"name"];
     [parameters setObject:hfUser.email forKey:@"email"];
@@ -201,7 +214,7 @@
         issue.ticketID = [[responseObject objectForKey:@"id"] stringValue];
 
         // Parsing user id
-        NSString* userId = [[[responseObject objectForKey:@"user"] objectForKey:@"id"] stringValue];
+        NSString *userId = [[[responseObject objectForKey:@"user"] objectForKey:@"id"] stringValue];
         hfUser.apiHref = userId;
         success(issue, hfUser);
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -210,8 +223,12 @@
     }];
 }
 
-- (void)addReply:(HSTicketReply *)reply forTicket:(HSTicket *)ticket byUser:(HSUser *)user success:(void (^)(HSUpdate* update))success failure:(void (^)(NSError* e))failure {
-
+- (void)addReply:(HSTicketReply *)reply
+       forTicket:(HSTicket *)ticket
+          byUser:(HSUser *)user
+         success:(void(^)(HSUpdate *update))success
+         failure:(void(^)(NSError *e))failure
+{
     NSString *qString = @"api/1.1/json/ticket/";
     qString = [qString stringByAppendingString:ticket.ticketID];
     qString = [qString stringByAppendingString:@"/user_reply/"];

@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'UI' do |ss|
-    ss.dependency 'HelpStack/Core'
+    # ss.dependency 'HelpStack/Core'
     ss.dependency 'HelpStack/Stacks'
     ss.source_files = 'Classes/UI/*.{h,m}'
   end

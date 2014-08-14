@@ -38,6 +38,7 @@
     if (self) {
         // Custom initialization
     }
+
     return self;
 }
 
@@ -48,7 +49,7 @@
     /* This dummy footer view is added to the table view to remove the separator lines between empty cells */
     self.tableView.tableFooterView = [UIView new];
 
-    HSAppearance* appearance = [[HSHelpStack instance] appearance];
+    HSAppearance *appearance = [[HSHelpStack instance] appearance];
     self.view.backgroundColor = [appearance getBackgroundColor];
 }
 
@@ -65,15 +66,17 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
 {
     return [self.attachmentsList count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"AttachmentCell";
-    HSTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    HSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[HSTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -83,11 +86,15 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [self performSegueWithIdentifier:@"showAttachmentView" sender:indexPath];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender
+{
     NSIndexPath *indexPath = (NSIndexPath *)sender;
     HSAttachment *attachment = [self.attachmentsList objectAtIndex:indexPath.row];
     HSAttachmentsViewController *viewController = (HSAttachmentsViewController *)[segue destinationViewController];

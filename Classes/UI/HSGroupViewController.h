@@ -26,6 +26,6 @@
 
 @interface HSGroupViewController : HSTableViewController
 
-@property (nonatomic, strong) HSKBItem* selectedKB;
+@property (nonatomic, strong) HSKBItem *selectedKB;
 
 @end

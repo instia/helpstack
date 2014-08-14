@@ -63,7 +63,9 @@
  Note: Call success even if you are not doing anything here.
 
  */
-- (void)fetchKBForSection:(HSKBItem*)section success:(void (^)(NSMutableArray* kbarray))success failure:(void(^)(NSError* e))failure;
+- (void)fetchKBForSection:(HSKBItem *)section
+                  success:(void(^)(NSMutableArray *kbarray))success
+                  failure:(void(^)(NSError *e))failure;
 
 
 ///------------------------------------------
@@ -78,7 +80,9 @@
  @return, array of type HSTicket when operation is success.
 
  */
-- (void)fetchAllTicketForUser:(HSUser *)user success:(void (^)(NSMutableArray* ticketarray))success failure:(void (^)(NSError* e))failure;
+- (void)fetchAllTicketForUser:(HSUser *)user
+                      success:(void(^)(NSMutableArray *ticketarray))success
+                      failure:(void(^)(NSError *e))failure;
 
 
 ///------------------------------------------
@@ -92,7 +96,9 @@
 
  @return valid user object, this object will be send back during ticket creation.
  */
-- (void)checkAndFetchValidUser:(HSUser*)user withSuccess:(void (^)(HSUser* validUser))success failure:(void(^)(NSError* e))failure;
+- (void)checkAndFetchValidUser:(HSUser *)user
+                   withSuccess:(void(^)(HSUser *validUser))success
+                       failure:(void(^)(NSError *e))failure;
 
 /**
  Create ticket with given params
@@ -104,7 +110,10 @@
  @return updated user object for tickets when operation is success.
 
  */
-- (void)createNewTicket:(HSNewTicket *)newTicket byUser:(HSUser *)user success:(void (^)(HSTicket* ticket, HSUser * updatedUserInfo))success failure:(void (^)(NSError* e))failure;
+- (void)createNewTicket:(HSNewTicket *)newTicket
+                 byUser:(HSUser *)user
+                success:(void(^)(HSTicket *ticket, HSUser *updatedUserInfo))success
+                failure:(void(^)(NSError *e))failure;
 
 
 ///------------------------------------------
@@ -120,7 +129,10 @@
     @return array of HSUpdate object when operation is success
 
  */
-- (void)fetchAllUpdateForTicket:(HSTicket *)ticket forUser:(HSUser *)user success:(void (^)(NSMutableArray* updateArray))success failure:(void (^)(NSError* e))failure;
+- (void)fetchAllUpdateForTicket:(HSTicket *)ticket
+                        forUser:(HSUser *)user
+                        success:(void(^)(NSMutableArray *updateArray))success
+                        failure:(void(^)(NSError *e))failure;
 
 ///------------------------------------------
 /// @name Add reply to a ticket
@@ -135,9 +147,11 @@
 
  @return update object when operation is success
  */
-- (void)addReply:(HSTicketReply *)reply forTicket:(HSTicket *)ticket byUser:(HSUser *)user success:(void (^)(HSUpdate* update))success failure:(void (^)(NSError* e))failure;
-
-
+- (void)addReply:(HSTicketReply *)reply
+       forTicket:(HSTicket *)ticket
+          byUser:(HSUser *)user
+         success:(void(^)(HSUpdate *update))success
+         failure:(void(^)(NSError *e))failure;
 
 
 @optional
@@ -148,7 +162,9 @@
  Filter your KB articles and return an array to display.
  Default implementation, filters array within sections.
  */
-- (void)searchKB:(NSString*)searchString success:(void (^)(NSMutableArray* kbarray))success failure:(void(^)(NSError* e))failure;
+- (void)searchKB:(NSString *)searchString
+         success:(void(^)(NSMutableArray *kbarray))success
+         failure:(void(^)(NSError *e))failure;
 
 
 // To let email handle issue creation return yes. emailgear return yes. default is no.
@@ -157,17 +173,10 @@
 @end
 
 
-
 @interface HSGear : NSObject <HSGearProtocol>
 
-@property (nonatomic, strong) NSString* supportEmailAddress;
-@property (nonatomic, strong) NSString* localArticlePath;
-@property (nonatomic, strong) AFHTTPRequestOperationManager* networkManager;
-
+@property (nonatomic, strong) NSString *supportEmailAddress;
+@property (nonatomic, strong) NSString *localArticlePath;
+@property (nonatomic, strong) AFHTTPRequestOperationManager *networkManager;
 
 @end
-
-
-
-
-

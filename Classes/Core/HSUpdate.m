@@ -25,7 +25,8 @@
 
 @implementation HSUpdate
 
-- (NSString *)updatedAtString {
+- (NSString *)updatedAtString
+{
    return [HSUtility stringFortimeSinceDateFull:self.updatedAt];
 }
 
@@ -34,7 +35,8 @@
     return [NSString stringWithFormat:@"\nUpdate -> From: %@ \nContent: %@\nUpdatedTime: %@\nType: %@", _from, _content, [self updatedAtString], [self updateTypeString]];
 }
 
-- (NSString *)updateTypeString {
+- (NSString *)updateTypeString
+{
     if (_updateType == 0) {
         return @"User";
     }

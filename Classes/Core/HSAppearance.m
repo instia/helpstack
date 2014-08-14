@@ -115,27 +115,28 @@
 
 @implementation HSAppearance
 
-+ (id)instance {
-
-    static HSAppearance* sharedAppearance = nil;
++ (instancetype)instance
+{
+    static HSAppearance *sharedAppearance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedAppearance = [[HSAppearance alloc] init];
-        [sharedAppearance refreshAppearanceProperties]; //defaults get set.
-
+        if (sharedAppearance) {
+            [sharedAppearance refreshAppearanceProperties]; //defaults get set.
+        }
     });
 
     return sharedAppearance;
 }
 
-- (void)setCustomThemeProperties:(NSDictionary *)customThemeProperties {
-
+- (void)setCustomThemeProperties:(NSDictionary *)customThemeProperties
+{
     _customThemeProperties = customThemeProperties;
     [self refreshAppearanceProperties]; //if theme exist, those colors or fonts get set.
 }
 
-- (void)refreshAppearanceProperties {
-
+- (void)refreshAppearanceProperties
+{
     [self getNavigationBarProperties];
     [self getTableViewCellProperties];
     [self getTableHeaderProperties];
@@ -144,8 +145,8 @@
     [self getChatBubbleProperties];
 }
 
-- (void)getNavigationBarProperties {
-
+- (void)getNavigationBarProperties
+{
     self.navBarBgColor = DEFAULT_NAVIGATIONBAR_BACKGROUNDCOLOR;
     self.navBarTitleFont = DEFAULT_NAVIGATIONBAR_TITLEFONT;
     self.navBarTitleColor = DEFAULT_NAVIGATIONBAR_TITLECOLOR;
@@ -191,8 +192,8 @@
     }
 }
 
-- (void)getTableViewCellProperties {
-
+- (void)getTableViewCellProperties
+{
     self.cellBgColor = DEFAULT_CELL_BACKGROUNDCOLOR;
 
     //Background Color
@@ -206,8 +207,8 @@
     }
 }
 
-- (void)getTableHeaderProperties {
-
+- (void)getTableHeaderProperties
+{
     self.headerBgColor = DEFAULT_HEADER_BACKGROUNDCOLOR;
     self.headerTitleColor = DEFAULT_HEADER_TITLECOLOR;
     self.headerTitleFont = DEFAULT_HEADER_TITLEFONT;
@@ -242,8 +243,8 @@
     }
 }
 
-- (void)getLabelProperties {
-
+- (void)getLabelProperties
+{
     self.labelBgColor = DEFAULT_LABEL_BACKGROUNDCOLOR;
     self.labelColor = DEFAULT_LABEL_COLOR;
     self.labelFont = DEFAULT_LABEL_FONT;
@@ -279,8 +280,8 @@
     }
 }
 
--(void)getChatBubbleProperties {
-
+- (void)getChatBubbleProperties
+{
     self.rightChatBubble_BackgroundColor = DEFAULT_RIGHTCHATBUBBLE_BACKGROUNDCOLOR;
     self.rightChatBubble_textColor = DEFAULT_RIGHTCHATBUBBLE_TEXTCOLOR;
     self.rightChatBubble_textFont = DEFAULT_RIGHTCHATBUBBLE_TEXTFONT;
@@ -367,8 +368,8 @@
 }
 
 /* Background Color - this goes as the background color for all the HelpStack screens */
-- (UIColor *)getBackgroundColor {
-
+- (UIColor *)getBackgroundColor
+{
     UIColor *bgColor = DEFAULT_BACKGROUNDCOLOR;
 
     NSString *bgImageFileName = [self.customThemeProperties objectForKey:@"BackgroundImageName"];
@@ -392,8 +393,8 @@
 }
 
 /* NavigationBar Customization - This customization applies for all the navigation Bars in HelpStack screens */
-- (void)customizeNavigationBar:(UINavigationBar *)navigationBar {
-
+- (void)customizeNavigationBar:(UINavigationBar *)navigationBar
+{
     if ([HSAppearance isIOS6]) {
         [navigationBar setTintColor:self.navBarBgColor]; //Sets the navbar bg color
     }
@@ -421,7 +422,8 @@
 #pragma mark - TableView Customization
 
 /* TableView Customization - Setting a background color and separator color */
-- (void)customizeTableView:(UITableView *)tableView {
+- (void)customizeTableView:(UITableView *)tableView
+{
     UIColor *tableViewBgColor = DEFAULT_TABLEVIEW_BACKGROUNDCOLOR;
     UIColor *separatorColor = DEFAULT_TABLEVIEW_SEPARATORCOLOR;
     if(self.customThemeProperties != nil){
@@ -450,12 +452,14 @@
 }
 
 /* Setting a background Color for TableView section header */
-- (void)customizeTableHeader:(UIView *)view {
+- (void)customizeTableHeader:(UIView *)view
+{
     view.backgroundColor = self.headerBgColor;
 }
 
 /* Setting Header Title attributes */
-- (void)customizeHeaderTitle:(UILabel *)title {
+- (void)customizeHeaderTitle:(UILabel *)title
+{
     title.font = self.headerTitleFont;
     title.textColor = self.headerTitleColor;
     title.backgroundColor = [UIColor clearColor];
@@ -464,14 +468,14 @@
 /*  Cell customization - setting the cell background color.
     (Cell Labels will take up customization as per label properties
  */
-- (void)customizeCell:(UITableViewCell *)cell {
-
+- (void)customizeCell:(UITableViewCell *)cell
+{
     cell.backgroundColor = self.cellBgColor;
 }
 
 #pragma mark - Label Customization
-- (void)customizeTextLabel:(UILabel *)title {
-
+- (void)customizeTextLabel:(UILabel *)title
+{
     title.font = self.labelFont;
     title.textColor = self.labelColor;
     title.backgroundColor = self.labelBgColor;
@@ -481,8 +485,8 @@
     Small label denotes the label used to show the Message Sender
     name and TimeStamp of messages in IssueDetail Screen
 */
-- (void)customizeSmallTextLabel:(UILabel *)title {
-
+- (void)customizeSmallTextLabel:(UILabel *)title
+{
     title.font = self.messageInfoTextFont;
     title.backgroundColor = [UIColor clearColor];
     title.textColor = self.messageInfoTextColor;
@@ -490,8 +494,8 @@
 
 #pragma mark - Text View customization
 
-- (void)customizeTextView:(UITextView *)textView {
-
+- (void)customizeTextView:(UITextView *)textView
+{
     UIColor *bgColor = DEFAULT_TEXTVIEW_BACKGROUNDCOLOR;
     UIColor *textViewColor = DEFAULT_TEXTVIEW_TEXTCOLOR;
     UIFont *textFont = DEFAULT_TEXTVIEW_FONT;
@@ -531,8 +535,8 @@
 
 #pragma mark - Button customization
 
-- (void)customizeButton:(UIButton *)button {
-
+- (void)customizeButton:(UIButton *)button
+{
     UIColor *bgColor = DEFAULT_BUTTON_BACKGROUNDCOLOR;
     UIColor *buttonTitleColor = DEFAULT_BUTTON_TITLECOLOR;
     UIFont *buttonTitleFont = DEFAULT_BUTTON_TITLEFONT;
@@ -581,8 +585,8 @@
     Set the corresponding values to customize the chat bubbles
  */
 
-- (void)customizeRightBubble:(UIView *)bubble {
-
+- (void)customizeRightBubble:(UIView *)bubble
+{
     bubble.layer.borderColor = DEFAULT_CHATBUBBLE_BORDERCOLOR.CGColor;
     bubble.layer.borderWidth = 0.0;
 
@@ -591,8 +595,8 @@
     bubble.backgroundColor = self.rightChatBubble_BackgroundColor;
 }
 
--(void) customizeBubbleArrowForRightChatBubble:(UIView *)arrowView {
-
+- (void) customizeBubbleArrowForRightChatBubble:(UIView *)arrowView
+{
     arrowView.backgroundColor = [UIColor clearColor];
 
     NSArray *sublayers = [[arrowView layer] sublayers];
@@ -615,8 +619,8 @@
     [[arrowView layer] insertSublayer:shapeLayer atIndex:0];
 }
 
--(void) customizeBubbleArrowForLeftChatBubble:(UIView *)arrowView {
-
+- (void) customizeBubbleArrowForLeftChatBubble:(UIView *)arrowView
+{
     arrowView.backgroundColor = [UIColor clearColor];
 
     NSArray *sublayers = [[arrowView layer] sublayers];
@@ -639,8 +643,8 @@
     [[arrowView layer] insertSublayer:shapeLayer atIndex:0];
 }
 
-- (void)customizeLeftBubble:(UIView *)bubble {
-
+- (void)customizeLeftBubble:(UIView *)bubble
+{
     bubble.layer.borderColor = DEFAULT_CHATBUBBLE_BORDERCOLOR.CGColor;
     bubble.layer.borderWidth = 0.0;
 
@@ -649,43 +653,43 @@
     bubble.backgroundColor = self.leftChatBubble_BackgroundColor;
 }
 
--(void)customizeRightBubbleText:(UITextView *)BubbleText{
-
+- (void)customizeRightBubbleText:(UITextView *)BubbleText
+{
     BubbleText.backgroundColor = [UIColor clearColor];
     BubbleText.textColor = self.rightChatBubble_textColor;
     BubbleText.font = self.rightChatBubble_textFont;
 
 }
 
--(void)customizeLeftBubbleText:(UITextView *)BubbleText{
-
+- (void)customizeLeftBubbleText:(UITextView *)BubbleText
+{
     BubbleText.backgroundColor = [UIColor clearColor];
     BubbleText.textColor = self.leftChatBubble_textColor;
     BubbleText.font = self.leftChatBubble_textFont;
 }
 
--(UIFont *)getBubbleTextFont{
-
+- (UIFont *)getBubbleTextFont
+{
     return self.rightChatBubble_textFont;
 }
 
 //is this an iPhone5
-+ (BOOL)isTall {
-
++ (BOOL)isTall
+{
     UIScreen* screen = [UIScreen mainScreen];
     return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone && (screen.bounds.size.height * screen.scale) == 1136);
 }
 
-+ (BOOL)isIPad{
-
++ (BOOL)isIPad
+{
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
         return YES;
     }
     return NO;
 }
 
-+ (BOOL)isIOS6 {
-
++ (BOOL)isIOS6
+{
     return [[[UIDevice currentDevice] systemVersion] floatValue] < 7.0;
 }
 

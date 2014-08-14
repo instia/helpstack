@@ -28,20 +28,26 @@
 
 @implementation HSZenDeskTicket
 
-- (id)initWithRequestFields:(NSDictionary*)fields {
-    if (self = [super init]) {
+- (instancetype)initWithRequestFields:(NSDictionary *)fields
+{
+    self = [super init];
+    if (self) {
         self.ticketID = [[fields objectForKey:@"id"] stringValue];
         self.subject = [fields objectForKey:@"subject"];
     }
+
     return self;
 }
 
-- (id)initWithTicketFields:(NSDictionary *)fields {
-    if (self = [super init]) {
-        NSDictionary* ticketDictionary = [fields objectForKey:@"ticket"];
+- (instancetype)initWithTicketFields:(NSDictionary *)fields
+{
+    self = [super init];
+    if (self) {
+        NSDictionary *ticketDictionary = [fields objectForKey:@"ticket"];
         self.ticketID = [ticketDictionary objectForKey:@"id"];
         self.subject = [ticketDictionary objectForKey:@"subject"];
     }
+
     return self;
 }
 

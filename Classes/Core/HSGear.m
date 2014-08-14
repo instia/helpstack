@@ -36,12 +36,17 @@
 
 @implementation HSGear
 
-- (void)fetchKBForSection:(HSKBItem *)section success:(void (^)(NSMutableArray *))success failure:(void (^)(NSError *))failure {
+- (void)fetchKBForSection:(HSKBItem *)section
+                  success:(void(^)(NSMutableArray *))success
+                  failure:(void(^)(NSError *))failure
+{
     success(nil);
 }
 
 
-- (void)fetchAllTicketForUser:(HSUser *)user success:(void (^)(NSMutableArray* ticketarray))success failure:(void (^)(NSError* e))failure;
+- (void)fetchAllTicketForUser:(HSUser *)user
+                      success:(void(^)(NSMutableArray *ticketarray))success
+                      failure:(void(^)(NSError *e))failure
 {
     success(nil);
 }
@@ -59,7 +64,10 @@
 
  Note: The created ticket is added at first position, in the array created. So you dont have to do anything.
  */
-- (void)createNewTicket:(HSNewTicket *)newTicket byUser:(HSUser *)user success:(void (^)(HSTicket *, HSUser *))success failure:(void (^)(NSError *))failure
+- (void)createNewTicket:(HSNewTicket *)newTicket
+                 byUser:(HSUser *)user
+                success:(void(^)(HSTicket *, HSUser *))success
+                failure:(void(^)(NSError *))failure
 {
     success(nil, nil);
 }
@@ -72,7 +80,10 @@
 
  Note: Call success even if you are not doing anything here.
  */
-- (void)fetchAllUpdateForTicket:(HSTicket *)ticket forUser:(HSUser *)user success:(void (^)(NSMutableArray* updateArray))success failure:(void (^)(NSError* e))failure
+- (void)fetchAllUpdateForTicket:(HSTicket *)ticket
+                        forUser:(HSUser *)user
+                        success:(void(^)(NSMutableArray *updateArray))success
+                        failure:(void(^)(NSError *e))failure
 {
     success(nil);
 }
@@ -86,20 +97,27 @@
 
  Note: Call success even if you are not doing anything here.
  */
-- (void)addReply:(HSTicketReply *)reply forTicket:(HSTicket *)ticket byUser:(HSUser *)user success:(void (^)(HSUpdate* update))success failure:(void (^)(NSError* e))failure
+- (void)addReply:(HSTicketReply *)reply
+       forTicket:(HSTicket *)ticket
+          byUser:(HSUser *)user
+         success:(void(^)(HSUpdate *update))success
+         failure:(void(^)(NSError *e))failure
 {
     success(nil);
 }
 
-- (void)checkAndFetchValidUser:(HSUser*)user withSuccess:(void (^)(HSUser* validUser))success failure:(void(^)(NSError* e))failure {
-
+- (void)checkAndFetchValidUser:(HSUser *)user
+                   withSuccess:(void(^)(HSUser *validUser))success
+                       failure:(void(^)(NSError *e))failure
+{
     //do nothing by default
     //subclasses can override this and check with the server for a valid user.
     //return nil in success block if no valid user can be supplied by the user.
     success(user);
 }
 
-- (BOOL)doLetEmailHandleIssueCreation {
+- (BOOL)doLetEmailHandleIssueCreation
+{
     return NO;
 }
 

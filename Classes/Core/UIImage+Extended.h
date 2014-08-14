@@ -24,6 +24,6 @@
 
 @interface UIImage (Extended)
 
-- (NSString*)base64EncodedString;
+- (NSString *)base64EncodedString;
 
 @end

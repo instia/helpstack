@@ -30,14 +30,14 @@ typedef NS_OPTIONS(NSUInteger, HAUpdateType) {
 @interface HSUpdate : NSObject
 
 //required
-@property(nonatomic, strong) NSString* from;
-@property(nonatomic, strong) NSString* content;
-@property(nonatomic, strong) NSDate* updatedAt;
+@property(nonatomic, strong) NSString *from;
+@property(nonatomic, strong) NSString *content;
+@property(nonatomic, strong) NSDate *updatedAt;
 @property(nonatomic) HAUpdateType updateType;
 
 //optional
-@property (nonatomic, strong) NSArray* attachments;
+@property (nonatomic, strong) NSArray *attachments;
 
--(NSString*) updatedAtString;
+- (NSString *)updatedAtString;
 
 @end

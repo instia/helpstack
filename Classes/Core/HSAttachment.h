@@ -21,6 +21,7 @@
 //THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 /**
     `HSAttachment` class is used to hold ticket attachment information.
@@ -38,8 +39,9 @@
     @param fileName file name of the selected attachment
     @param mimeType mime type denoting the type of attachment
  */
-- (id)initWithUrl:(NSString *)url fileName:(NSString *)fileName mimeType:(NSString *)mimeType;
-
+- (instancetype)initWithUrl:(NSString *)url
+                   fileName:(NSString *)fileName
+                   mimeType:(NSString *)mimeType;
 
 /**
     The attachment as a png image

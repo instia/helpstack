@@ -29,7 +29,7 @@
 @interface HSTicket : NSObject<NSCoding>
 
 //required
-@property(nonatomic, strong) NSString* subject;
+@property(nonatomic, strong) NSString *subject;
 
 //optional
 @property (nonatomic, strong) NSString *ticketID;
@@ -40,5 +40,5 @@
 // Note: call super
 - (void)encodeWithCoder:(NSCoder *)aCoder;
 // Note: call super
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 @end

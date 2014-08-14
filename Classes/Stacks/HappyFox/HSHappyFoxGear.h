@@ -47,6 +47,16 @@
  */
 @property (nonatomic, strong) NSString *hfSectionID;
 
+@property (nonatomic, strong) NSString *api_key;
+@property (nonatomic, strong) NSString *auth_code;
+@property (nonatomic, strong) NSString *instanceUrl;
+@property (nonatomic, strong) NSDictionary *articleSections;
+@property (nonatomic, strong) NSString *hfPriorityID;
+@property (nonatomic, strong) NSString *hfCategoryID;
+
+@property (nonatomic, strong) NSDictionary *hfTicketCustomFields;
+@property (nonatomic, strong) NSDictionary *hfUserCustomFields;
+
 ///-------------------------------------------
 /// @name Creating and Initializing HSHappyFox
 ///-------------------------------------------
@@ -60,7 +70,10 @@
  @param api_key The API key as username required for authentication
  @param auth_code The Authentication code as password for authentication
  */
-- (id)initWithInstanceUrl:(NSString *) instanceUrl apiKey:(NSString *)api_key authoCode:(NSString *)auth_code priorityID: (NSString *)priority_ID categoryID: (NSString *) category_ID;
-
+- (instancetype)initWithInstanceUrl:(NSString *)instanceUrl
+                             apiKey:(NSString *)apiKey
+                          authoCode:(NSString *)auth_code
+                         priorityID:(NSString *)priority_ID
+                         categoryID:(NSString *)category_ID;
 
 @end

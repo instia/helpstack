@@ -31,17 +31,18 @@
     if (self) {
         [[[HSHelpStack instance] appearance] customizeBubbleArrowForLeftChatBubble:self];
     }
+
     return self;
 }
 
--(id) initWithCoder:(NSCoder *)aDecoder {
-
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
-    if(self) {
+    if (self) {
         [[[HSHelpStack instance] appearance] customizeBubbleArrowForLeftChatBubble:self];
     }
-    return self;
 
+    return self;
 }
 
 

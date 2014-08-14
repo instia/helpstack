@@ -32,6 +32,6 @@
  */
 @interface HSArticleDetailViewController : HSViewController
 
-@property (nonatomic, strong) HSKBItem* article;
+@property (nonatomic, strong) HSKBItem *article;
 
 @end

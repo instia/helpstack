@@ -25,6 +25,6 @@
 
 @interface HSChatBubbleRight : UIView
 
--(UITextView *)getChatTextView;
+- (UITextView *)getChatTextView;
 
 @end

@@ -24,8 +24,8 @@
 
 @implementation UIColor (Extended)
 
-+ (UIColor *)colorFromRGBString:(NSString *)colorString {
-
++ (UIColor *)colorFromRGBString:(NSString *)colorString
+{
     if(!colorString){
         return nil;
     }

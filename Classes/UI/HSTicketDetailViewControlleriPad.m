@@ -49,8 +49,8 @@ float keyboardH;
 	// Do any additional setup after loading the view.
 }
 
-- (void)addMessageView{
-
+- (void)addMessageView
+{
     self.messageText = [[HSGrowingTextView alloc] initWithFrame:CGRectMake(57, 5, 420, 42)];
     self.messageText.isScrollable = NO;
     self.messageText.contentInset = UIEdgeInsetsMake(0, 5, 0, 5);
@@ -94,8 +94,8 @@ float keyboardH;
 
 #pragma mark - Handle keyboard delegate
 
-- (void) keyboardWillShow:(NSNotification *)note{
-
+- (void) keyboardWillShow:(NSNotification *)note
+{
     CGRect formsheetFrame = self.navigationController.view.bounds;
     CGRect viewFrame = [UIScreen mainScreen].bounds;
     CGPoint centreP = CGPointMake(viewFrame.size.width/2, viewFrame.size.height/2);
@@ -149,8 +149,8 @@ float keyboardH;
 	[UIView commitAnimations];
 }
 
-- (void) keyboardWillHide:(NSNotification *)note{
-
+- (void) keyboardWillHide:(NSNotification *)note
+{
     CGRect formsheetFrame = self.navigationController.view.bounds;
     CGRect viewFrame = [UIScreen mainScreen].bounds;
     CGPoint centreP = CGPointMake(viewFrame.size.width/2, viewFrame.size.height/2);
@@ -212,15 +212,15 @@ float keyboardH;
 
 #pragma mark - Handle orientation
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
     msgEntered = self.messageText.text;
     self.messageText.text = @"";
     self.messageText.placeholder = @"";
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
-
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
     if(msgEntered) {
         self.messageText.text = msgEntered;
         msgEntered = nil;

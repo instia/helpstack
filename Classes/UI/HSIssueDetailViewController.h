@@ -33,8 +33,8 @@
 @interface HSIssueDetailViewController : HSViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, HPGrowingTextViewDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate>
 
 
-@property (nonatomic, strong) HSTicketSource* ticketSource;
-@property (nonatomic, strong, readwrite) HSTicket* selectedTicket;
+@property (nonatomic, strong) HSTicketSource *ticketSource;
+@property (nonatomic, strong, readwrite) HSTicket *selectedTicket;
 
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIView *bottomMessageView;

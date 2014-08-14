@@ -25,6 +25,6 @@
 
 @interface HSDeskKBItem : HSKBItem
 
-@property (nonatomic, strong) NSDictionary* apiLinks;
+@property (nonatomic, strong) NSDictionary *apiLinks;
 
 @end

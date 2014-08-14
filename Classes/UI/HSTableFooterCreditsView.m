@@ -46,6 +46,7 @@
         [poweredlabel setAttributedText:attributedString];
         [self addSubview:poweredlabel];
     }
+
     return self;
 }
 
